@@ -1,11 +1,9 @@
-import { z } from "zod";
 import {
   createTRPCRouter,
   publicProcedure,
-  protectedProcedure
 } from "~/server/api/trpc";
 import { baseGPTThemeSchema } from "~/lib/schema/gpt.schema";
-import axios, { AxiosResponse } from "axios";
+import axios, { type AxiosResponse } from "axios";
 
 interface ChatCompletionResponse {
   choices: Completion[];
@@ -15,10 +13,9 @@ interface Completion {
     content: string;
   };
 }
-async function sendChatMessage(message: string): Promise<string | undefined> {
+async function sendChatMessage(message: string): Promise<string[] | undefined> {
 
   const apiKey = process.env.OPENAI_API_KEY || "";
-
 
   try {
     const response: AxiosResponse<ChatCompletionResponse> = await axios.post('https://api.openai.com/v1/chat/completions', {
@@ -37,11 +34,22 @@ async function sendChatMessage(message: string): Promise<string | undefined> {
     const completions = response.data.choices;
     if (completions && completions.length > 0) {
       const returnMessage = completions[0]?.message.content || ""
-      console.log(returnMessage)
-      return returnMessage
+      // turn into list
+      const lines = returnMessage.split("\n")
+      const words = []
+      for (const line of lines) {
+        words.push(...line.split(" "))
+      }
+      const colours = []
+      for (const word of words) {
+        if (word.startsWith("#")) {
+          colours.push(word)
+        }
+      }
+      return colours
     }
   } catch (error) {
-
+    console.log(error)
   }
 
   return undefined;
@@ -49,9 +57,20 @@ async function sendChatMessage(message: string): Promise<string | undefined> {
 
 export const gptRouter = createTRPCRouter({
     getColours: publicProcedure.input(baseGPTThemeSchema).mutation(async ({input}) => {
-      const message = await sendChatMessage(input.theme)
+      const theme = input.theme
+      const prompt = `generate a set of ${theme} colours: 1 
+      primary,1 secondary, and 3 accent colours in hex for my website as 
+      a colour palate, skip the context and explanation`
+      let colours = await sendChatMessage(prompt)
+      if (colours === undefined) {
+        colours = ["#FFFFFF", "#000000", "#000000", "#000000", "#000000"]
+      }
       return {
-        greeting: message,
+        primaryColour: colours[0],
+        secondaryColour: colours[1],
+        accentColour1: colours[2],
+        accentColour2: colours[3],
+        accentColour3: colours[4],
       };
     })
   }
