@@ -12,10 +12,17 @@ interface ColourContextType {
   accentColour1: string;
   accentColour2: string;
   accentColour3: string;
+  primaryColourHistory: string[];
+  secondaryColourHistory: string[];
+  accentColour1History: string[];
+  accentColour2History: string[];
+  accentColour3History: string[];
 }
 
 // Create the context
 const MyContext = createContext<ColourContextType | undefined>(undefined);
+
+
 
 // Custom hook to access the context
 export const useColourContext = () => {
@@ -30,11 +37,34 @@ export const useColourContext = () => {
 // @ts-ignore
 export const MyColourProvider: React.FC = ({ children }) => {
 
-  const [primaryColour, setPrimaryColour] = useState("#ffffff");
-  const [secondaryColour, setSecondaryColour] = useState("#000000");
-  const [accentColour1, setAccentColour1] = useState("#000000");
-  const [accentColour2, setAccentColour2] = useState("#000000");
-  const [accentColour3, setAccentColour3] = useState("#000000");
+  const [primaryColour, setPColour] = useState("#ffffff");
+  const [secondaryColour, setSColour] = useState("#000000");
+  const [accentColour1, setAColour1] = useState("#000000");
+  const [accentColour2, setAColour2] = useState("#000000");
+  const [accentColour3, setAColour3] = useState("#000000");
+  const [primaryColourHistory, setPrimaryColourHistory] = useState(["#ffffff"]);
+const [secondaryColourHistory, setSecondaryColourHistory] = useState(["#000000"]);
+const [accentColour1History, setAccentColour1History] = useState(["#000000"]);
+const [accentColour2History, setAccentColour2History] = useState(["#000000"]);
+const [accentColour3History, setAccentColour3History] = useState(["#000000"]);
+
+  // handles changing state for colours, as well as keep history of last 6 colours
+  const setPrimaryColour = (colour: string) => {
+    changeColourHelper(colour, primaryColourHistory, setPrimaryColourHistory, setPColour);
+  }
+  const setSecondaryColour = (colour: string) => {
+    changeColourHelper(colour, secondaryColourHistory, setSecondaryColourHistory, setSColour);
+  }
+  const setAccentColour1 = (colour: string) => {
+    changeColourHelper(colour, accentColour1History, setAccentColour1History, setAColour1);
+  }
+  const setAccentColour2 = (colour: string) => {
+    changeColourHelper(colour, accentColour2History, setAccentColour2History, setAColour2);
+  }
+  const setAccentColour3 = (colour: string) => {
+    changeColourHelper(colour, accentColour3History, setAccentColour3History, setAColour3);
+  }
+
 
   // Provide the values to the context
   const contextValue: ColourContextType = {
@@ -48,6 +78,11 @@ export const MyColourProvider: React.FC = ({ children }) => {
     accentColour1,
     accentColour2,
     accentColour3,
+    primaryColourHistory,
+    secondaryColourHistory,
+    accentColour1History,
+    accentColour2History,
+    accentColour3History
   };
 
   return (
@@ -55,4 +90,21 @@ export const MyColourProvider: React.FC = ({ children }) => {
       {children}
     </MyContext.Provider>
   );
+};
+
+const changeColourHelper = (colour: string,
+                            history: string[],
+                            setHistory: React.Dispatch<React.SetStateAction<string[]>>,
+                            setState: React.Dispatch<React.SetStateAction<string>>) => {
+  colour = colour.toLowerCase();
+  if (!history.includes(colour)) {
+    {
+      if (history.length > 5) {
+        setHistory([colour, ...history.slice(0, 5)]);
+      } else {
+        setHistory([colour, ...history]);
+      }
+    }
+  }
+  setState(colour);
 };

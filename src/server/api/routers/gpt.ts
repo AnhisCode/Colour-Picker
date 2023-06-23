@@ -58,9 +58,12 @@ async function sendChatMessage(message: string): Promise<string[] | undefined> {
 export const gptRouter = createTRPCRouter({
     getColours: publicProcedure.input(baseGPTThemeSchema).mutation(async ({input}) => {
       const theme = input.theme
-      const prompt = `generate a set of ${theme} colours: 1 
-      primary,1 secondary, and 3 accent colours in hex for my website as 
-      a colour palate, skip the context and explanation`
+      const prompt = `generate a set of complementary ${theme} colours: 1 
+      primary, 1 secondary, and 3 accent colours in hex for my website as 
+      a colour palate, The accent colour shouldn't be too different 
+      from the primary or secondary colour, and should be a gradient of either or. 
+      The Primary and secondary colour should be contrasting enough to be distinguishable. 
+      skip the context and explanation`
       let colours = await sendChatMessage(prompt)
       if (colours === undefined) {
         colours = ["#FFFFFF", "#000000", "#000000", "#000000", "#000000"]

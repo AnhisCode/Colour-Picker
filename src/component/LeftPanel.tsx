@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FieldValue, type SubmitHandler, useForm } from "react-hook-form";
 import { api } from "~/utils/api";
 import { useColourContext } from "~/lib/ColourProvider";
-import Circle from '@uiw/react-color-circle';
+import Circle from "@uiw/react-color-circle";
 
 interface colourData {
   theme: string;
@@ -31,44 +31,54 @@ export default function LeftPanel() {
   const [loading, setLoading] = useState(false);
   const {
     setPrimaryColour,
-      setSecondaryColour,
-      setAccentColour1,
-      setAccentColour2,
-      setAccentColour3,
-      primaryColour,
-      secondaryColour,
-      accentColour1,
-      accentColour2,
-      accentColour3
+    setSecondaryColour,
+    setAccentColour1,
+    setAccentColour2,
+    setAccentColour3,
+    primaryColour,
+    secondaryColour,
+    accentColour1,
+    accentColour2,
+    accentColour3,
+    primaryColourHistory,
+    secondaryColourHistory,
+    accentColour1History,
+    accentColour2History,
+    accentColour3History
   } = useColourContext();
   const { register, handleSubmit, watch, formState: { errors } } = useForm<colourData>();
   const getTheme = api.gpt.getColours.useMutation();
   const onSubmit: SubmitHandler<colourData> = async (data) => {
     console.log(data.theme);
     setLoading(true);
-    const res = await getTheme.mutateAsync({theme: data.theme});
+    const res = await getTheme.mutateAsync({ theme: data.theme });
     setPrimaryColour((res as colourResponse).primaryColour);
     setSecondaryColour((res as colourResponse).secondaryColour);
     setAccentColour1((res as colourResponse).accentColour1);
     setAccentColour2((res as colourResponse).accentColour2);
     setAccentColour3((res as colourResponse).accentColour3);
     setLoading(false);
-  }
+  };
+
+  const relativeLuminance = calculateRelativeLuminance(primaryColour);
+  const isDark = relativeLuminance < 0.5;
 
   return (
-      <div className={`fixed top-0 z-10 w-[25vw] bg-slate-600 bg-opacity-80 ${openPanel ? "" : "-translate-x-[100%]"} duration-500 ease-out`}>
-        {/*panel toggle*/}
-        <div className={"flex items-center font-bold pl-4 text-2xl absolute -right-[25px] " +
-          "top-[47%]"}>
-          <div className={`${openPanel ? "animate-side-bounce-left" : "animate-side-bounce-right"} cursor-pointer`}
-               onClick={() => setOpenPanel(!openPanel)}>
-            {openPanel ? "<" : ">"}
-          </div>
+    <div
+      className={`fixed top-0 z-20 w-[250px] bg-slate-600 bg-opacity-80 ${openPanel ? "" : "-translate-x-[100%]"} duration-500 ease-out`}>
+      {/*panel toggle*/}
+      <div className={"flex items-center font-bold pl-4 text-2xl absolute -right-[25px] " +
+        "top-[47%]"}>
+        <div
+          className={`${openPanel ? "animate-side-bounce-left" : "animate-side-bounce-right"} cursor-pointer ${isDark ? "text-white" : "text-black"}`}
+          onClick={() => setOpenPanel(!openPanel)}>
+          {openPanel ? "<" : ">"}
         </div>
-        <div className={"flex"}>
-          <div className={`relative`}>
-            {/*panel info*/}
-            <div className={"overflow-scroll h-screen"}>
+      </div>
+      <div className={"flex"}>
+        <div className={`relative`}>
+          {/*panel info*/}
+          <div className={"overflow-scroll h-screen"}>
             <div>
               <h1 className={"text-white text-2xl text-center pt-4"}>Colour Picker</h1>
             </div>
@@ -77,38 +87,38 @@ export default function LeftPanel() {
               <form className={"block"} onSubmit={handleSubmit(onSubmit)}>
                 <div>
                   <label>Theme </label>
-                  <input defaultValue="test" {...register("theme")} required={true}/>
+                  <input defaultValue="test" {...register("theme")} required={true} />
                   eg: moody, light, dark
                 </div>
-                <div >
-                  <input className={"bg-gray-200 px-4"} type="submit" disabled={loading}/>
+                <div>
+                  <input className={"bg-gray-200 px-4"} type="submit" disabled={loading} />
                 </div>
               </form>
               :
               <div className={"flex flex-col"}> loading... </div>
             }
             <p>Primary Colour</p>
-            <div className={`w-16 h-16 m-4`} style={{backgroundColor: primaryColour}}/>
+            <div className={`w-16 h-16 m-4`} style={{ backgroundColor: primaryColour }} />
             <Circle
-              colors={[ '#F44E3B', '#FE9200', '#FCDC00', '#DBDF00' ]}
+              colors={primaryColourHistory}
               color={primaryColour}
               onChange={(color) => {
                 setPrimaryColour(color.hex);
               }}
             />
             <p>Secondary Colour</p>
-            <div className={`w-16 h-16 m-4`} style={{backgroundColor: secondaryColour}}/>
+            <div className={`w-16 h-16 m-4`} style={{ backgroundColor: secondaryColour }} />
             <Circle
-              colors={[ '#F44E3B', '#FE9200', '#FCDC00', '#DBDF00' ]}
+              colors={secondaryColourHistory}
               color={secondaryColour}
               onChange={(color) => {
                 setSecondaryColour(color.hex);
               }}
             />
             <p>Accent Colour 1</p>
-            <div className={`w-16 h-16 m-4`} style={{backgroundColor: accentColour1}}/>
+            <div className={`w-16 h-16 m-4`} style={{ backgroundColor: accentColour1 }} />
             <Circle
-              colors={[ '#F44E3B', '#FE9200', '#FCDC00', '#DBDF00' ]}
+              colors={accentColour1History}
               color={accentColour1}
               onChange={(color) => {
                 setAccentColour1(color.hex);
@@ -116,9 +126,9 @@ export default function LeftPanel() {
               }
             />
             <p>Accent Colour 2</p>
-            <div className={`w-16 h-16 m-4`} style={{backgroundColor: accentColour2}}/>
+            <div className={`w-16 h-16 m-4`} style={{ backgroundColor: accentColour2 }} />
             <Circle
-              colors={[ '#F44E3B', '#FE9200', '#FCDC00', '#858541' ]}
+              colors={accentColour2History}
               color={accentColour2}
               onChange={(color) => {
                 setAccentColour2(color.hex);
@@ -126,9 +136,9 @@ export default function LeftPanel() {
               }
             />
             <p>Accent Colour 3</p>
-            <div className={`w-16 h-16 m-4`} style={{backgroundColor: accentColour3}}/>
+            <div className={`w-16 h-16 m-4`} style={{ backgroundColor: accentColour3 }} />
             <Circle
-              colors={[ '#F44E3B', '#FE9200', '#FCDC00', '#DBDF00' ]}
+              colors={accentColour3History}
               color={accentColour3}
               onChange={(color) => {
                 setAccentColour3(color.hex);
@@ -136,9 +146,22 @@ export default function LeftPanel() {
               }
             />
           </div>
-          </div>
         </div>
       </div>
+    </div>
   );
 
 }
+
+function calculateRelativeLuminance(hexColor: string): number {
+  const hex = hexColor.replace("#", "");
+
+  // Split the hex color into its red, green, and blue components
+  const r = parseInt(hex.substr(0, 2), 16) / 255;
+  const g = parseInt(hex.substr(2, 2), 16) / 255;
+  const b = parseInt(hex.substr(4, 2), 16) / 255;
+
+  // Calculate the relative luminance using the formula
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
