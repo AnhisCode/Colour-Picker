@@ -1,9 +1,9 @@
-import React, { ReactNode, useEffect, useRef, useState } from "react";
+import React, { type ReactNode, useEffect, useRef, useState } from "react";
 import Block from "@uiw/react-color-block";
 import { useColourContext } from "~/lib/ColourProvider";
 
 interface WrapperProps {
-  children: ReactNode;
+  children?: ReactNode;
   type: "primary" | "secondary" | "accent1" | "accent2" | "accent3";
 }
 
@@ -79,14 +79,13 @@ export const ColourElementWrapper: React.FC<WrapperProps> = ({ children, type })
   }
 
   return (
-    <>
       <div className={"relative"} ref={elementRef}>
         {/*colour changer*/}
         <div className={`absolute z-10 ${!openColourPanel ? "z-[-2] opacity-0" : "opacity-100"} top-[110%] left-[25%]`}
              style={{
                transitionProperty: "opacity, z-index",
                transitionDuration: "0.2s, 0s",
-               transitionDelay: `${openColourPanel ? "0.2s, 0s" : "0s, 0.2s"}`,
+               transitionDelay: `${openColourPanel ? "0s, 0s" : "0s, 0.2s"}`,
                transitionTimingFunction: "ease-out, ease-in-out"
              }}>
           <Block
@@ -97,15 +96,13 @@ export const ColourElementWrapper: React.FC<WrapperProps> = ({ children, type })
         <div onClick={() => {
           setOpenColourPanel(!openColourPanel);
         }}
-             className={"cursor-pointer duration-100 ease-out hover:border-b-2"}>
-
+             className={"relative cursor-pointer hover:shadow-[0_0_0_2px_rgba(0,0,0,1)]"}>
           {/*CONTENT HERE*/}
           {children}
           {/*CONTENT HERE*/}
         </div>
 
       </div>
-    </>
   );
 
 };

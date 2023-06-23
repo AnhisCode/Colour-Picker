@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, ReactNode, useContext, useState } from "react";
 
 // Define the shape of your context
 interface ColourContextType {
@@ -33,9 +33,8 @@ export const useColourContext = () => {
   return context;
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-export const MyColourProvider: React.FC = ({ children }) => {
+
+export const MyColourProvider: React.FC = ({ children }: {children?: ReactNode[]}) => {
 
   const [primaryColour, setPColour] = useState("#ffffff");
   const [secondaryColour, setSColour] = useState("#000000");

@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
-import { FieldValue, type SubmitHandler, useForm } from "react-hook-form";
+import { useState } from "react";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import { api } from "~/utils/api";
 import { useColourContext } from "~/lib/ColourProvider";
 import Circle from "@uiw/react-color-circle";
+import { ColourElementWrapper } from "~/component/ColourElementWrapper";
 
 interface colourData {
   theme: string;
@@ -14,15 +15,6 @@ interface colourResponse {
   accentColour1: string;
   accentColour2: string;
   accentColour3: string;
-}
-
-// create prop interface
-type colourPanelProps = {
-  setPrimaryColour: (value: string) => void;
-  setSecondaryColour: (value: string) => void;
-  setAccentColour1: (value: string) => void;
-  setAccentColour2: (value: string) => void;
-  setAccentColour3: (value: string) => void;
 }
 
 export default function LeftPanel() {
@@ -46,7 +38,7 @@ export default function LeftPanel() {
     accentColour2History,
     accentColour3History
   } = useColourContext();
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<colourData>();
+  const { register, handleSubmit } = useForm<colourData>();
   const getTheme = api.gpt.getColours.useMutation();
   const onSubmit: SubmitHandler<colourData> = async (data) => {
     console.log(data.theme);
@@ -65,7 +57,7 @@ export default function LeftPanel() {
 
   return (
     <div
-      className={`fixed top-0 z-20 w-[250px] bg-slate-600 bg-opacity-80 ${openPanel ? "" : "-translate-x-[100%]"} duration-500 ease-out`}>
+      className={`fixed top-0 z-[20] w-[250px] bg-slate-600 bg-opacity-80 ${openPanel ? "" : "-translate-x-[100%]"} duration-500 ease-out`}>
       {/*panel toggle*/}
       <div className={"flex items-center font-bold pl-4 text-2xl absolute -right-[25px] " +
         "top-[47%]"}>
@@ -98,7 +90,12 @@ export default function LeftPanel() {
               <div className={"flex flex-col"}> loading... </div>
             }
             <p>Primary Colour</p>
-            <div className={`w-16 h-16 m-4`} style={{ backgroundColor: primaryColour }} />
+
+            <div className={`w-16 h-16 m-4`} style={{ backgroundColor: primaryColour }} >
+              <ColourElementWrapper type={"primary"}>
+                <div className={"h-16"}/>
+              </ColourElementWrapper>
+            </div>
             <Circle
               colors={primaryColourHistory}
               color={primaryColour}
@@ -107,7 +104,11 @@ export default function LeftPanel() {
               }}
             />
             <p>Secondary Colour</p>
-            <div className={`w-16 h-16 m-4`} style={{ backgroundColor: secondaryColour }} />
+            <div className={`w-16 h-16 m-4`} style={{ backgroundColor: secondaryColour }} >
+              <ColourElementWrapper type={"secondary"}>
+                <div className={"h-16"}/>
+              </ColourElementWrapper>
+            </div>
             <Circle
               colors={secondaryColourHistory}
               color={secondaryColour}
@@ -116,7 +117,11 @@ export default function LeftPanel() {
               }}
             />
             <p>Accent Colour 1</p>
-            <div className={`w-16 h-16 m-4`} style={{ backgroundColor: accentColour1 }} />
+            <div className={`w-16 h-16 m-4`} style={{ backgroundColor: accentColour1 }} >
+              <ColourElementWrapper type={"accent1"}>
+                <div className={"h-16"}/>
+              </ColourElementWrapper>
+            </div>
             <Circle
               colors={accentColour1History}
               color={accentColour1}
@@ -126,7 +131,11 @@ export default function LeftPanel() {
               }
             />
             <p>Accent Colour 2</p>
-            <div className={`w-16 h-16 m-4`} style={{ backgroundColor: accentColour2 }} />
+            <div className={`w-16 h-16 m-4`} style={{ backgroundColor: accentColour2 }} >
+              <ColourElementWrapper type={"accent2"}>
+                <div className={"h-16"}/>
+              </ColourElementWrapper>
+            </div>
             <Circle
               colors={accentColour2History}
               color={accentColour2}
@@ -136,7 +145,11 @@ export default function LeftPanel() {
               }
             />
             <p>Accent Colour 3</p>
-            <div className={`w-16 h-16 m-4`} style={{ backgroundColor: accentColour3 }} />
+            <div className={`w-16 h-16 m-4`} style={{ backgroundColor: accentColour3 }} >
+              <ColourElementWrapper type={"accent3"}>
+                <div className={"h-16"}/>
+              </ColourElementWrapper>
+            </div>
             <Circle
               colors={accentColour3History}
               color={accentColour3}

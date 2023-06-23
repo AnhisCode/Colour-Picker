@@ -4,6 +4,9 @@ export default {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        poppins: ['var(--font-poppins)']
+      },
       animation: {
         "side-bounce-left": "sideBounceLeft 1s infinite",
         "side-bounce-right": "sideBounceRight 1s infinite"
@@ -30,7 +33,7 @@ export default {
           },
         },
       }
-    }
+    },
   },
   plugins: []
 };

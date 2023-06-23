@@ -5,14 +5,18 @@ import { api } from "~/utils/api";
 import "~/styles/globals.css";
 import LeftPanel from "~/component/LeftPanel";
 import { MyColourProvider } from "~/lib/ColourProvider";
+import React from "react";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
 
+
   return (
     <SessionProvider session={session}>
+      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+      {/*// @ts-ignore*/}
       <MyColourProvider>
       <LeftPanel/>
       <Component {...pageProps} />
