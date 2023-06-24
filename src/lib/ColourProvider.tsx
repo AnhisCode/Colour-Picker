@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import React, { createContext, type ReactNode, useContext, useState } from "react";
 
 // Define the shape of your context
 interface ColourContextType {
@@ -17,6 +17,8 @@ interface ColourContextType {
   accentColour1History: string[];
   accentColour2History: string[];
   accentColour3History: string[];
+  editMode: boolean;
+  setEditMode: (value: boolean) => void;
 }
 
 // Create the context
@@ -36,16 +38,16 @@ export const useColourContext = () => {
 
 export const MyColourProvider: React.FC = ({ children }: {children?: ReactNode[]}) => {
 
-  const [primaryColour, setPColour] = useState("#ffffff");
-  const [secondaryColour, setSColour] = useState("#000000");
-  const [accentColour1, setAColour1] = useState("#000000");
+  const [primaryColour, setPColour] = useState("#E94C78");
+  const [secondaryColour, setSColour] = useState("#FFFFFF");
+  const [accentColour1, setAColour1] = useState("#FD749B");
   const [accentColour2, setAColour2] = useState("#000000");
   const [accentColour3, setAColour3] = useState("#000000");
-  const [primaryColourHistory, setPrimaryColourHistory] = useState(["#ffffff"]);
-const [secondaryColourHistory, setSecondaryColourHistory] = useState(["#000000"]);
-const [accentColour1History, setAccentColour1History] = useState(["#000000"]);
-const [accentColour2History, setAccentColour2History] = useState(["#000000"]);
-const [accentColour3History, setAccentColour3History] = useState(["#000000"]);
+  const [primaryColourHistory, setPrimaryColourHistory] = useState([primaryColour]);
+const [secondaryColourHistory, setSecondaryColourHistory] = useState([secondaryColour]);
+const [accentColour1History, setAccentColour1History] = useState([accentColour1]);
+const [accentColour2History, setAccentColour2History] = useState([accentColour2]);
+const [accentColour3History, setAccentColour3History] = useState([accentColour3]);
 
   // handles changing state for colours, as well as keep history of last 6 colours
   const setPrimaryColour = (colour: string) => {
@@ -64,6 +66,7 @@ const [accentColour3History, setAccentColour3History] = useState(["#000000"]);
     changeColourHelper(colour, accentColour3History, setAccentColour3History, setAColour3);
   }
 
+  const [editMode, setEditMode] = useState(true);
 
   // Provide the values to the context
   const contextValue: ColourContextType = {
@@ -81,8 +84,12 @@ const [accentColour3History, setAccentColour3History] = useState(["#000000"]);
     secondaryColourHistory,
     accentColour1History,
     accentColour2History,
-    accentColour3History
+    accentColour3History,
+    editMode,
+    setEditMode
   };
+
+  //TODO ADD EDIT MODE
 
   return (
     <MyContext.Provider value={contextValue}>

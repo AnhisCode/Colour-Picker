@@ -62,7 +62,8 @@ export const gptRouter = createTRPCRouter({
       primary, 1 secondary, and 3 accent colours in hex for my website as 
       a colour palate, The accent colour shouldn't be too different 
       from the primary or secondary colour, and should be a gradient of either or. 
-      The Primary and secondary colour should be contrasting enough to be distinguishable. 
+      The Primary and secondary colour should be contrasting enough to be distinguishable, 
+      and always have one a lot darker than the other. 
       skip the context and explanation`
       let colours = await sendChatMessage(prompt)
       if (colours === undefined) {

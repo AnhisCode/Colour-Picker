@@ -36,7 +36,9 @@ export default function LeftPanel() {
     secondaryColourHistory,
     accentColour1History,
     accentColour2History,
-    accentColour3History
+    accentColour3History,
+    editMode,
+    setEditMode
   } = useColourContext();
   const { register, handleSubmit } = useForm<colourData>();
   const getTheme = api.gpt.getColours.useMutation();
@@ -57,7 +59,7 @@ export default function LeftPanel() {
 
   return (
     <div
-      className={`fixed top-0 z-[20] w-[250px] bg-slate-600 bg-opacity-80 ${openPanel ? "" : "-translate-x-[100%]"} duration-500 ease-out`}>
+      className={`fixed top-0 z-[100] w-[250px] bg-slate-600 bg-opacity-80 ${openPanel ? "" : "-translate-x-[100%]"} duration-500 ease-out`}>
       {/*panel toggle*/}
       <div className={"flex items-center font-bold pl-4 text-2xl absolute -right-[25px] " +
         "top-[47%]"}>
@@ -70,6 +72,9 @@ export default function LeftPanel() {
       <div className={"flex"}>
         <div className={`relative`}>
           {/*panel info*/}
+          <button onClick={() => {setEditMode(!editMode)}}>
+            edit mode
+          </button>
           <div className={"overflow-scroll h-screen"}>
             <div>
               <h1 className={"text-white text-2xl text-center pt-4"}>Colour Picker</h1>

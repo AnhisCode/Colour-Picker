@@ -26,6 +26,8 @@ const useClickOutside = (
   }, [ref, handleClickOutside]);
 };
 
+//TODO FIX THE OVERLAPPING ISSUE
+
 export const ColourElementWrapper: React.FC<WrapperProps> = ({ children, type }) => {
   const [openColourPanel, setOpenColourPanel] = useState(false);
 
@@ -47,7 +49,9 @@ export const ColourElementWrapper: React.FC<WrapperProps> = ({ children, type })
     setSecondaryColour,
     setAccentColour1,
     setAccentColour2,
-    setAccentColour3
+    setAccentColour3,
+    editMode,
+    setEditMode
   } = useColourContext();
 
   let colour = "";
@@ -94,9 +98,12 @@ export const ColourElementWrapper: React.FC<WrapperProps> = ({ children, type })
           />
         </div>
         <div onClick={() => {
-          setOpenColourPanel(!openColourPanel);
+          if (editMode) {
+            setOpenColourPanel(!openColourPanel);
+            setEditMode(false)
+          }
         }}
-             className={"relative cursor-pointer hover:shadow-[0_0_0_2px_rgba(0,0,0,1)]"}>
+             className={`relative ${editMode ? "cursor-pointer hover:shadow-[0_0_0_2px_rgba(0,0,0,1)]" : ""}`}>
           {/*CONTENT HERE*/}
           {children}
           {/*CONTENT HERE*/}
