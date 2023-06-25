@@ -2,8 +2,9 @@ import React from "react";
 import { ColourElementWrapper } from "~/component/ColourElementWrapper";
 import { useColourContext } from "~/lib/ColourProvider";
 import { SectionBleed1 } from "~/SVGComponents/page1/SectionBleed1";
+import { Blob } from "~/SVGComponents/page1/Blob";
 import localFont from "@next/font/local";
-import { calculateRelativeLuminance, darkenHexColor } from "~/lib/HexFunctionHelper";
+import { calculateRelativeLuminance, darkenHexColor, hexToRGB } from "~/lib/HexFunctionHelper";
 import { ImageCarousel } from "~/component/ImageCarousel";
 
 const poppins = localFont({
@@ -34,20 +35,29 @@ export const HaydenPage = () => {
   const bright = secondaryBrightness > 0.5;
   const darkerPrimary = darkenHexColor(primaryColour);
 
+  console.log(`linear-gradient(180deg, ${hexToRGB(primaryColour)} 40%, ${hexToRGB(darkerPrimary)} 100%)`)
+  console.log(darkerPrimary)
+
   return (
-    <div className={`w-full ${poppins.variable} font-poppins overflow-x-hidden`}>
-      <div className={"h-32 bg-white"} />
-      <div className={""}>
+    <div className={`w-full ${poppins.variable} font-poppins overflow-x-hidden`} style={{backgroundColor: darkerPrimary }}>
+      <div className={"h-32"} style={{ backgroundColor: primaryColour }} />
+      <div>
 
         {/*header*/}
         <ColourElementWrapper type={"primary"}>
           <div className={"flex justify-center z-[1] h-[700px] w-full duration-300 ease-out"}
                style={{
                  // backgroundColor: primaryColour,
-                 background: `linear-gradient(180deg, ${primaryColour} 40%, ${darkerPrimary} 100%)`
+                 background: `linear-gradient(180deg, ${hexToRGB(primaryColour)} 40%, ${darkerPrimary} 100%)`
                }}>
+            <div className={"absolute scale-[70%] z-0 rotate-[18deg] md:left-10 -left-60 top-0"}>
+              <Blob colour={accentColour2} />
+            </div>
+            <div className={"absolute scale-[70%] z-0 rotate-[160deg] md:right-10 -right-60 bottom-20"}>
+              <Blob colour={accentColour2} />
+            </div>
             <ColourElementWrapper type={"secondary"}>
-              <div className={"text-center z-[2] duration-300 ease-out mt-[38%]"} style={{ color: secondaryColour }}>
+              <div className={"text-center z-[2] duration-300 ease-out mt-[38%] md:scale-100 scale-[80%]"} style={{ color: secondaryColour }}>
                 <h1 className={"text-5xl mb-6"}>Quickly and Easily</h1>
                 <h1 className={"text-5xl font-bold"}>Create Websites</h1>
                 <p className={"mt-4 text-xl"}>Change the colour of website in live</p>
@@ -130,12 +140,18 @@ export const HaydenPage = () => {
           </div>
         </ColourElementWrapper>
 
-        {/*body 3*/}
+        {/*body 2*/}
         <ColourElementWrapper type={"primary"}>
           <div className={"relative w-full duration-300 ease-out xl:pt-40 pt-32 pb-40"}
                style={{
-                 background: `linear-gradient(180deg, ${primaryColour} 40%, ${darkerPrimary} 100%)`
+                 background: `linear-gradient(180deg, ${hexToRGB(primaryColour)} 40%, ${darkerPrimary} 100%)`
                }}>
+            <div className={"absolute scale-[70%] z-0 rotate-[100deg] left-10 top-40"}>
+              <Blob colour={accentColour2} />
+            </div>
+            <div className={"absolute scale-[70%] z-0 rotate-[90deg] right-10 -bottom-40"}>
+              <Blob colour={accentColour2} />
+            </div>
             <div className={"w-full flex justify-center items-center xl:px-32 px-20 translate-y-[40px]"}>
               {/*image  */}
               <div className={"grid md:grid-cols-2 grid-cols-1 w-full gap-16 mb-10 xl:mb-20"}>
@@ -166,7 +182,7 @@ export const HaydenPage = () => {
           </div>
         </ColourElementWrapper>
 
-        {/*body 4*/}
+        {/*body 3*/}
         <ColourElementWrapper type={"secondary"}>
           <div className={"relative w-full flex justify-center items-center"} style={{
             backgroundColor: secondaryColour
@@ -198,7 +214,7 @@ export const HaydenPage = () => {
                 <div className={"items-center relative flex h-[400px]"}>
                   <div
                     className={"absolute aspect-square z-20 xl:h-[80%] h-[60%] md:left-[40%] left-[30%] " +
-                      "drop-shadow-[0px_0px_15px_rgba(0,0,0,0.25)] rounded-2xl translate-y-[-10px]"}
+                      "drop-shadow-[0px_0px_15px_rgba(0,0,0,0.25)] inner-shadow-xl rounded-2xl translate-y-[-10px]"}
                     style={{ backgroundColor: primaryColour }} />
                   <div className={"absolute h-[200px] w-[300%] z-10 bg-white shadow-xl rounded-3xl " +
                     "mb-8 md:translate-x-[40px] translate-x-[-200px]"} />
@@ -215,12 +231,18 @@ export const HaydenPage = () => {
           </div>
         </ColourElementWrapper>
 
-        {/*body 5*/}
+        {/*body 4*/}
         <ColourElementWrapper type={"primary"}>
-          <div className={"w-full"} style={{
+          <div className={"w-full relative"} style={{
             // backgroundColor: primaryColour,
-            background: `linear-gradient(180deg, ${primaryColour} 40%, ${darkerPrimary} 100%)`
+            background: `linear-gradient(180deg, ${hexToRGB(primaryColour)} 40%, ${darkerPrimary} 100%)`
           }}>
+            <div className={"absolute scale-[50%] left-10 top-20"}>
+              <Blob colour={accentColour2} />
+            </div>
+            <div className={"absolute scale-[30%] right-10 bottom-20"}>
+              <Blob colour={accentColour2} />
+            </div>
             <ColourElementWrapper type={"secondary"}>
               <div className={"w-full flex h-full justify-center pt-60"}>
                 <div>
@@ -264,15 +286,72 @@ export const HaydenPage = () => {
               </div>
               <div className={"md:pb-60 pb-16"}>
                 <ImageCarousel />
+                <div className={"flex justify-center"}>
+                  <ColourElementWrapper type={"secondary"}>
+                    <div
+                      className={"py-4 md:mb-0 mb-12 z-[30] px-8 rounded-full cursor-pointer hover:scale-[105%] duration-300 ease-out"}
+                      style={{ backgroundColor: secondaryColour, color: accentColour1 }}>
+                      <ColourElementWrapper type={"accent1"}>
+                        <button className={"text-sm text-center font-bold z-[4]"}>
+                          GET STARTED
+                        </button>
+                      </ColourElementWrapper>
+                    </div>
+                  </ColourElementWrapper>
+                </div>
               </div>
+
             </ColourElementWrapper>
           </div>
         </ColourElementWrapper>
 
-        {/*body 6*/}
+        {/*body 5*/}
         <ColourElementWrapper type={"secondary"}>
           <div className={"top-0 absolute z-0 rotate-[-1deg] md:translate-y-[-280px] translate-y-[-260px]"}>
             <SectionBleed1 colour={secondaryColour} />
+          </div>
+          <div className={`md:block absolute scale-[70%] z-20 rotate-[34deg] left-10 top-0 hidden`}>
+            <Blob colour={accentColour2} />
+          </div>
+          <div className={"absolute scale-[80%] z-10 rotate-[210deg] right-10 -top-5"}>
+            <Blob colour={accentColour2} />
+          </div>
+          <div className={"w-full relative flex justify-center items-center py-20"} style={{
+            backgroundColor: secondaryColour
+          }}>
+            <div className={`text-center  ${bright ? "text-black" : "text-white"}`}>
+            <div className={"flex justify-center translate-y-0 md:translate-y-[-100%]"}>
+              <ColourElementWrapper type={"accent1"}>
+                <h2 className={"text-2xl font-bold"} style={{ color: accentColour1 }}>Experience the magic</h2>
+                <div className={"flex justify-center mt-2"}>
+                  <div className={"w-16 h-2 rounded-full"} style={{ backgroundColor: accentColour1 }} />
+                </div>
+              </ColourElementWrapper>
+            </div>
+
+            <p className={"mb-4"}>Discover awesome way to build website in a</p>
+              <p>new fashion</p>
+              <div className={"flex justify-center"}>
+                <div
+                  className={"py-4 z-[30] px-8 mt-8 rounded-full cursor-pointer hover:scale-[105%] duration-300 ease-out"}
+                  style={{ backgroundColor: primaryColour, color: secondaryColour }}>
+                  <button className={"text-sm font-bold z-[4]"}>
+                    Get Started
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={"absolute rotate-[-181deg] scale-x-[-150%] z-10 translate-x-[80px] -translate-y-[240px]"}>
+            <SectionBleed1 colour={secondaryColour} />
+          </div>
+        </ColourElementWrapper>
+
+        <ColourElementWrapper type={"primary"}>
+          <div className={"w-full h-[600px]"} style={{
+            background: `linear-gradient(180deg, ${hexToRGB(primaryColour)} 40%, ${darkerPrimary} 100%)`
+          }}>
+
           </div>
         </ColourElementWrapper>
       </div>

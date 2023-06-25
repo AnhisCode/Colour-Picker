@@ -41,13 +41,13 @@ export const MyColourProvider: React.FC = ({ children }: {children?: ReactNode[]
   const [primaryColour, setPColour] = useState("#E94C78");
   const [secondaryColour, setSColour] = useState("#FFFFFF");
   const [accentColour1, setAColour1] = useState("#FD749B");
-  const [accentColour2, setAColour2] = useState("#000000");
+  const [accentColour2, setAColour2] = useState("#D2D2D2");
   const [accentColour3, setAColour3] = useState("#000000");
-  const [primaryColourHistory, setPrimaryColourHistory] = useState([primaryColour]);
-const [secondaryColourHistory, setSecondaryColourHistory] = useState([secondaryColour]);
-const [accentColour1History, setAccentColour1History] = useState([accentColour1]);
-const [accentColour2History, setAccentColour2History] = useState([accentColour2]);
-const [accentColour3History, setAccentColour3History] = useState([accentColour3]);
+  const [primaryColourHistory, setPrimaryColourHistory] = useState(["#E94C78".toLowerCase()]);
+const [secondaryColourHistory, setSecondaryColourHistory] = useState(["#FFFFFF".toLowerCase()]);
+const [accentColour1History, setAccentColour1History] = useState(["#FD749B".toLowerCase()]);
+const [accentColour2History, setAccentColour2History] = useState(["#000000".toLowerCase()]);
+const [accentColour3History, setAccentColour3History] = useState(["#000000".toLowerCase()]);
 
   // handles changing state for colours, as well as keep history of last 6 colours
   const setPrimaryColour = (colour: string) => {

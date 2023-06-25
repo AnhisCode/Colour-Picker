@@ -14,16 +14,32 @@ export function darkenHexColor(hexColor: string): string {
   // Remove the '#' symbol if present
   hexColor = hexColor.replace("#", "");
 
+
   // Convert the hex color to RGB
   const r = parseInt(hexColor.substring(0, 2), 16);
   const g = parseInt(hexColor.substring(2, 4), 16);
   const b = parseInt(hexColor.substring(4, 6), 16);
+
 
   // Calculate the darker shade by reducing the RGB values
   const darkerR = Math.round(r * 0.8);  // 80% of the original value
   const darkerG = Math.round(g * 0.8);
   const darkerB = Math.round(b * 0.8);
 
+
   // Convert the darker RGB values back to hex
-  return `#${darkerR.toString(16)}${darkerG.toString(16)}${darkerB.toString(16)}`;
+  return `rgb(${darkerR}, ${darkerG}, ${darkerB})`;
+}
+
+export function hexToRGB(hexColor: string) {
+  // Remove the '#' symbol if present
+  hexColor = hexColor.replace('#', '');
+
+  // Split the hex color into red, green, and blue components
+  const red = parseInt(hexColor.substring(0, 2), 16);
+  const green = parseInt(hexColor.substring(2, 4), 16);
+  const blue = parseInt(hexColor.substring(4, 6), 16);
+
+  // Return the RGB format
+  return `rgb(${red}, ${green}, ${blue})`;
 }

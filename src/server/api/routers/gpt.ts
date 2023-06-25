@@ -34,6 +34,7 @@ async function sendChatMessage(message: string): Promise<string[] | undefined> {
     const completions = response.data.choices;
     if (completions && completions.length > 0) {
       const returnMessage = completions[0]?.message.content || ""
+      console.log(returnMessage)
       // turn into list
       const lines = returnMessage.split("\n")
       const words = []
