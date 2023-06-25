@@ -7,6 +7,9 @@ export default {
       fontFamily: {
         poppins: ['var(--font-poppins)']
       },
+      lineHeight: {
+        'extra-loose': '2.5',
+      },
       animation: {
         "side-bounce-left": "sideBounceLeft 1s infinite",
         "side-bounce-right": "sideBounceRight 1s infinite"

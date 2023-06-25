@@ -66,7 +66,7 @@ const [accentColour3History, setAccentColour3History] = useState([accentColour3]
     changeColourHelper(colour, accentColour3History, setAccentColour3History, setAColour3);
   }
 
-  const [editMode, setEditMode] = useState(true);
+  const [editMode, setEditMode] = useState(false);
 
   // Provide the values to the context
   const contextValue: ColourContextType = {

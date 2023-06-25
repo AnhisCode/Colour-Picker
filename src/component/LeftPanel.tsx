@@ -4,6 +4,7 @@ import { api } from "~/utils/api";
 import { useColourContext } from "~/lib/ColourProvider";
 import Circle from "@uiw/react-color-circle";
 import { ColourElementWrapper } from "~/component/ColourElementWrapper";
+import { calculateRelativeLuminance } from "~/lib/HexFunctionHelper";
 
 interface colourData {
   theme: string;
@@ -169,17 +170,5 @@ export default function LeftPanel() {
     </div>
   );
 
-}
-
-function calculateRelativeLuminance(hexColor: string): number {
-  const hex = hexColor.replace("#", "");
-
-  // Split the hex color into its red, green, and blue components
-  const r = parseInt(hex.substr(0, 2), 16) / 255;
-  const g = parseInt(hex.substr(2, 2), 16) / 255;
-  const b = parseInt(hex.substr(4, 2), 16) / 255;
-
-  // Calculate the relative luminance using the formula
-  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
 
