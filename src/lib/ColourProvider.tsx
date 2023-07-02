@@ -42,12 +42,12 @@ export const MyColourProvider: React.FC = ({ children }: {children?: ReactNode[]
   const [secondaryColour, setSColour] = useState("#FFFFFF");
   const [accentColour1, setAColour1] = useState("#FD749B");
   const [accentColour2, setAColour2] = useState("#D2D2D2");
-  const [accentColour3, setAColour3] = useState("#000000");
+  const [accentColour3, setAColour3] = useState("#FFD0D0");
   const [primaryColourHistory, setPrimaryColourHistory] = useState(["#E94C78".toLowerCase()]);
 const [secondaryColourHistory, setSecondaryColourHistory] = useState(["#FFFFFF".toLowerCase()]);
 const [accentColour1History, setAccentColour1History] = useState(["#FD749B".toLowerCase()]);
-const [accentColour2History, setAccentColour2History] = useState(["#000000".toLowerCase()]);
-const [accentColour3History, setAccentColour3History] = useState(["#000000".toLowerCase()]);
+const [accentColour2History, setAccentColour2History] = useState(["#D2D2D2".toLowerCase()]);
+const [accentColour3History, setAccentColour3History] = useState(["#FFD0D0".toLowerCase()]);
 
   // handles changing state for colours, as well as keep history of last 6 colours
   const setPrimaryColour = (colour: string) => {
