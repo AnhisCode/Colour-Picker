@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useColourContext } from "~/lib/ColourProvider";
+import Link from "next/link";
 
 export const NavbarHayden = () => {
 
@@ -42,7 +43,7 @@ export const NavbarHayden = () => {
             }}>Home</p>
             {activeTab === "Home" &&
               <div className={"absolute translate-x-14"}>
-                <div className={"h-1 w-8 rounded-xl"} style={{backgroundColor: secondaryColour}}/>
+                <div className={"h-1 w-8 rounded-xl"} style={{ backgroundColor: secondaryColour }} />
               </div>
             }
           </div>
@@ -53,7 +54,7 @@ export const NavbarHayden = () => {
             }}>About Us</p>
             {activeTab === "About Us" &&
               <div className={"absolute translate-x-[67px]"}>
-                <div className={"h-1 w-8 rounded-xl"} style={{backgroundColor: secondaryColour}}/>
+                <div className={"h-1 w-8 rounded-xl"} style={{ backgroundColor: secondaryColour }} />
               </div>
             }
           </div>
@@ -64,15 +65,16 @@ export const NavbarHayden = () => {
             }}>Contact</p>
             {activeTab === "Contact" &&
               <div className={"absolute translate-x-[65px]"}>
-                <div className={"h-1 w-8 rounded-xl"} style={{backgroundColor: secondaryColour}}/>
+                <div className={"h-1 w-8 rounded-xl"} style={{ backgroundColor: secondaryColour }} />
               </div>
             }
           </div>
-
-          <div className={"rounded-3xl px-6 py-3 ml-12 hover:scale-[105%] duration-300 ease-out cursor-pointer"}
-               style={{ backgroundColor: secondaryColour }}>
-            <p className={"font-bold"} style={{ color: accentColour1 }}>Get Started</p>
-          </div>
+          <Link href={"/login"}>
+            <div className={"rounded-3xl px-6 py-3 ml-12 hover:scale-[105%] duration-300 ease-out cursor-pointer"}
+                 style={{ backgroundColor: secondaryColour }}>
+              <p className={"font-bold"} style={{ color: accentColour1 }}>Get Started</p>
+            </div>
+          </Link>
         </div>
       </div> : <div>Small</div>}
     </div>

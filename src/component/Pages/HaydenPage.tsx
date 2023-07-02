@@ -8,6 +8,8 @@ import { calculateRelativeLuminance, darkenHexColor, hexToRGB } from "~/lib/HexF
 import { ImageCarousel } from "~/component/ImageCarousel";
 import { NavbarHayden } from "~/component/NavBar";
 import { Footer } from "~/component/Footer";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 const poppins = localFont({
   src: [
@@ -22,6 +24,8 @@ const poppins = localFont({
   ],
   variable: "--font-poppins"
 });
+
+
 
 export const HaydenPage = () => {
 
@@ -66,6 +70,7 @@ export const HaydenPage = () => {
                 <p className={"text-xl"}>time and customise it how you want to look</p>
                 <div className={"flex justify-center items-center mt-4"}>
                   <ColourElementWrapper type={"secondary"}>
+                    <Link href={"/login"}>
                     <div
                       className={"py-4 z-[30] px-8 rounded-full cursor-pointer hover:scale-[105%] duration-300 ease-out"}
                       style={{ backgroundColor: secondaryColour, color: accentColour1 }}>
@@ -75,6 +80,7 @@ export const HaydenPage = () => {
                         </button>
                       </ColourElementWrapper>
                     </div>
+                    </Link>
                   </ColourElementWrapper>
                 </div>
               </div>
@@ -167,6 +173,7 @@ export const HaydenPage = () => {
                       Fusce eu rhoncus augue. Fusce vel metus pharetra, fermentum
                     </p>
                     <div className={"flex"}>
+                      <Link href={"/login"}>
                       <div
                         className={"py-4 z-[30] px-8 mt-8 rounded-full cursor-pointer hover:scale-[105%] duration-300 ease-out"}
                         style={{ backgroundColor: secondaryColour, color: accentColour1 }}>
@@ -176,6 +183,7 @@ export const HaydenPage = () => {
                           </button>
                         </ColourElementWrapper>
                       </div>
+                      </Link>
                     </div>
                   </ColourElementWrapper>
                 </div>
@@ -290,6 +298,7 @@ export const HaydenPage = () => {
                 <ImageCarousel />
                 <div className={"flex justify-center"}>
                   <ColourElementWrapper type={"secondary"}>
+                    <Link href={"/login"}>
                     <div
                       className={"py-4 md:mb-0 mb-12 z-[30] px-8 rounded-full cursor-pointer hover:scale-[105%] duration-300 ease-out"}
                       style={{ backgroundColor: secondaryColour, color: accentColour1 }}>
@@ -299,6 +308,7 @@ export const HaydenPage = () => {
                         </button>
                       </ColourElementWrapper>
                     </div>
+                    </Link>
                   </ColourElementWrapper>
                 </div>
               </div>

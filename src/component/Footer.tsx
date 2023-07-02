@@ -12,7 +12,7 @@ export const Footer = () => {
   const { register, handleSubmit } = useForm<emailData>();
 
   const onSubmit = (data: emailData) => {
-    console.log(data);
+    alert(`Thank you for subscribing to our newsletter (${data.email})! This is a demo so nothing will happen hahaha`)
   }
 
   const {
@@ -81,10 +81,9 @@ export const Footer = () => {
         <p className={"mb-4"}>
           The latest insights, community content, and resources sent to your inbox weekly.
         </p>
-        <form onSubmit={() => {
-          handleSubmit(onSubmit);
-        }} className={"mr-4"}>
-          <input className={"border-2 rounded-md w-full p-2 mb-4"}
+        {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+        <form onSubmit={handleSubmit(onSubmit)} className={"mr-4"}>
+          <input className={" rounded-md w-full p-2 mb-4"}
                  type="email"
                  {...register("email")}
                  placeholder={"Enter your email"}
