@@ -22,6 +22,7 @@ export default function LeftPanel() {
 
   const [openPanel, setOpenPanel] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState("default");
   const {
     setPrimaryColour,
     setSecondaryColour,
@@ -44,6 +45,7 @@ export default function LeftPanel() {
   const { register, handleSubmit } = useForm<colourData>();
   const getTheme = api.gpt.getColours.useMutation();
   const onSubmit: SubmitHandler<colourData> = async (data) => {
+    setCurrentTheme(data.theme);
     console.log(data.theme);
     setLoading(true);
     const res = await getTheme.mutateAsync({ theme: data.theme });
@@ -57,6 +59,19 @@ export default function LeftPanel() {
 
   const relativeLuminance = calculateRelativeLuminance(primaryColour);
   const isDark = relativeLuminance < 0.5;
+
+  const uploadColourPalette = api.colour.addColourPalette.useMutation();
+  const handleSave = async () => {
+    const res = await uploadColourPalette.mutateAsync({
+      themeName: currentTheme,
+      primaryColour: primaryColour,
+      secondaryColour: secondaryColour,
+      accentColour1: accentColour1,
+      accentColour2: accentColour2,
+      accentColour3: accentColour3
+    });
+    console.log(res)
+  }
 
   return (
     <div
@@ -75,6 +90,9 @@ export default function LeftPanel() {
           {/*panel info*/}
           <button onClick={() => {setEditMode(!editMode)}}>
             edit mode
+          </button>
+          <button className={"ml-4"} onClick={handleSave}>
+            SAVE
           </button>
           <div className={"overflow-scroll h-screen"}>
             <div>

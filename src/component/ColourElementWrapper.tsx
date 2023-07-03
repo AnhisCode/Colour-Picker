@@ -85,7 +85,7 @@ export const ColourElementWrapper: React.FC<WrapperProps> = ({ children, type })
   return (
       <div className={"relative"} ref={elementRef}>
         {/*colour changer*/}
-        <div className={`absolute z-10 ${!openColourPanel ? "z-[-2] opacity-0" : "opacity-100"} top-[110%] left-[25%]`}
+        <div className={`absolute z-50 ${!openColourPanel ? "z-[-2] opacity-0" : "opacity-100"} top-[110%] left-[25%]`}
              style={{
                transitionProperty: "opacity, z-index",
                transitionDuration: "0.2s, 0s",

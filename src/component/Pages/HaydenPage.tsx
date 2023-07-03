@@ -10,6 +10,7 @@ import { NavbarHayden } from "~/component/NavBar";
 import { Footer } from "~/component/Footer";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { api } from "~/utils/api";
 
 const poppins = localFont({
   src: [
@@ -24,8 +25,6 @@ const poppins = localFont({
   ],
   variable: "--font-poppins"
 });
-
-
 
 export const HaydenPage = () => {
 

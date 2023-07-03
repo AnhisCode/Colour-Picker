@@ -20,10 +20,8 @@ export const LoginComponent = () => {
   };
 
   const {
-    primaryColour,
     accentColour1,
     secondaryColour,
-    accentColour2,
     accentColour3
   } = useColourContext();
 

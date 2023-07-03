@@ -1,20 +1,19 @@
-import { z } from "zod";
 import {
   createTRPCRouter,
   publicProcedure,
-  protectedProcedure,
 } from "~/server/api/trpc";
 import clientPromise from "~/lib/MongoDB";
+import { addColourPaletteSchema } from "~/lib/schema/color.schema";
 
-export const exampleRouter = createTRPCRouter({
-  add: publicProcedure
-    .input(z.object({ text: z.string() }))
+export const colourRouter = createTRPCRouter({
+  addColourPalette: publicProcedure
+    .input(addColourPaletteSchema)
     .mutation(async ({ input }) => {
       try {
         const client = await clientPromise;
         const db = client.db('development');
-        const colours = db.collection('colours');
-        await colours.insertOne({ colour: input.text });
+        const colours = db.collection('palette');
+        await colours.insertOne(input);
         return {
           status: `success`,
         }
@@ -25,8 +24,4 @@ export const exampleRouter = createTRPCRouter({
         }
       }
     }),
-
-  getSecretMessage: protectedProcedure.query(() => {
-    return "you can now see this secret message!";
-  }),
 });
