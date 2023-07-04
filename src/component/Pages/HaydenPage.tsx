@@ -139,10 +139,10 @@ export const HaydenPage = () => {
             </div>
           </div>
 
-          <div className={"top-0 absolute z-0 rotate-[-1deg] md:translate-y-[-280px] translate-y-[-260px]"}>
+          <div className={"top-0 absolute z-0 scale-[150%] md:translate-x-[-20px] rotate-[-3deg] md:translate-y-[-100px] translate-y-[-130px]"}>
             <SectionBleed1 colour={secondaryColour} />
           </div>
-          <div className={"absolute rotate-[-181deg] z-10 scale-x-[150%] -translate-y-[230px]"}>
+          <div className={"absolute rotate-[-181deg] z-10 scale-x-[150%] -translate-y-[80px]"}>
             <SectionBleed1 colour={secondaryColour} />
           </div>
         </ColourElementWrapper>
@@ -232,10 +232,10 @@ export const HaydenPage = () => {
             </ColourElementWrapper>
           </div>
 
-          <div className={"top-0 absolute z-0 rotate-[-1deg] md:translate-y-[-280px] translate-y-[-260px]"}>
+          <div className={"top-0 absolute z-0 rotate-[-1deg] scale-x-[150%] md:translate-y-[-150px] translate-y-[-110px]"}>
             <SectionBleed1 colour={secondaryColour} />
           </div>
-          <div className={"absolute rotate-[-181deg] z-10 scale-x-[150%] translate-x-[-100px] -translate-y-[230px]"}>
+          <div className={"absolute rotate-[-181deg] z-10 scale-x-[150%] -translate-y-[80px] md:-translate-y-[50px]"}>
             <SectionBleed1 colour={secondaryColour} />
           </div>
         </ColourElementWrapper>
@@ -263,6 +263,7 @@ export const HaydenPage = () => {
                       <div className={"w-16 h-2 rounded-full"} style={{ backgroundColor: accentColour1 }} />
                     </div>
                   </ColourElementWrapper>
+                  <ColourElementWrapper type={"secondary"}>
                   <div className={"flex justify-center"}>
                     <div className={"text-center md:w-[500px] w-[80%]"}>
                       <p className={"mt-10"} style={{
@@ -291,6 +292,7 @@ export const HaydenPage = () => {
                       </p>
                     </div>
                   </div>
+                  </ColourElementWrapper>
                 </div>
               </div>
               <div className={"md:pb-60 pb-16"}>
@@ -302,7 +304,7 @@ export const HaydenPage = () => {
                       className={"py-4 md:mb-0 mb-12 z-[30] px-8 rounded-full cursor-pointer hover:scale-[105%] duration-300 ease-out"}
                       style={{ backgroundColor: secondaryColour, color: accentColour1 }}>
                       <ColourElementWrapper type={"accent1"}>
-                        <button className={"text-sm text-center font-bold z-[4]"}>
+                        <button className={"text-sm text-center font-bold z-[11]"}>
                           GET STARTED
                         </button>
                       </ColourElementWrapper>
@@ -318,7 +320,7 @@ export const HaydenPage = () => {
 
         {/*body 5*/}
         <ColourElementWrapper type={"secondary"}>
-          <div className={"top-0 absolute z-0 rotate-[-1deg] md:translate-y-[-280px] translate-y-[-260px]"}>
+          <div className={"top-0 absolute z-0 rotate-[1deg] scale-x-[-150%] md:translate-y-[-150px] translate-y-[-110px]"}>
             <SectionBleed1 colour={secondaryColour} />
           </div>
           <div className={`md:block absolute scale-[70%] z-20 rotate-[34deg] left-10 top-0 hidden`}>
@@ -346,14 +348,14 @@ export const HaydenPage = () => {
                 <div
                   className={"py-4 z-[30] px-8 mt-8 rounded-full cursor-pointer hover:scale-[105%] duration-300 ease-out"}
                   style={{ backgroundColor: primaryColour, color: secondaryColour }}>
-                  <button className={"text-sm font-bold z-[4]"}>
+                  <button className={"text-sm font-bold z-[11]"}>
                     Get Started
                   </button>
                 </div>
               </div>
             </div>
           </div>
-          <div className={"absolute rotate-[-181deg] scale-x-[-150%] z-10 translate-x-[80px] -translate-y-[240px]"}>
+          <div className={"absolute rotate-[-179deg] scale-x-[-150%] z-10 translate-x-[10px] -translate-y-[75px]"}>
             <SectionBleed1 colour={secondaryColour} />
           </div>
         </ColourElementWrapper>

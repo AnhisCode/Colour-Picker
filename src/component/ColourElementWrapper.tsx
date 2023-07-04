@@ -26,10 +26,15 @@ const useClickOutside = (
   }, [ref, handleClickOutside]);
 };
 
-//TODO FIX THE OVERLAPPING ISSUE
+interface CustomElementState {
+  position: { x: number; y: number };
+}
 
 export const ColourElementWrapper: React.FC<WrapperProps> = ({ children, type }) => {
   const [openColourPanel, setOpenColourPanel] = useState(false);
+  const [state, setState] = useState<CustomElementState>({
+    position: { x: 0, y: 0 },
+  });
 
   const elementRef = useRef<HTMLDivElement>(null);
 
@@ -85,22 +90,30 @@ export const ColourElementWrapper: React.FC<WrapperProps> = ({ children, type })
   return (
       <div className={"relative"} ref={elementRef}>
         {/*colour changer*/}
-        <div className={`absolute z-50 ${!openColourPanel ? "z-[-2] opacity-0" : "opacity-100"} top-[110%] left-[25%]`}
+        <div className={`fixed ${!openColourPanel ? "z-[-10] opacity-0" : "z-[100] opacity-100"}`}
              style={{
+               top: `${state.position.y + 10}px`,
+                left: `${state.position.x - 85}px `,
                transitionProperty: "opacity, z-index",
                transitionDuration: "0.2s, 0s",
                transitionDelay: `${openColourPanel ? "0s, 0s" : "0s, 0.2s"}`,
                transitionTimingFunction: "ease-out, ease-in-out"
              }}>
+          <div className={`${openColourPanel ? "hidden" :"absolute"} z-[101] w-full h-full bg-rose-50`}/>
           <Block
             color={colour}
             onChange={(color) => setterFunction(color.hex)}
+            className={"z-[100] fixed"}
           />
         </div>
-        <div onClick={() => {
+        <div onClick={(event) => {
           if (editMode) {
+            event.stopPropagation();
             setOpenColourPanel(!openColourPanel);
             setEditMode(false)
+            setState({
+              position: { x: event.clientX, y: event.clientY },
+            });
           }
         }}
              className={`relative ${editMode ? "cursor-pointer hover:shadow-[0_0_0_2px_rgba(0,0,0,1)]" : ""}`}>

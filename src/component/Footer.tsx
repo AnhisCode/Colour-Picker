@@ -2,6 +2,7 @@ import React from "react";
 import { useColourContext } from "~/lib/ColourProvider";
 import { ImFacebook, ImGooglePlus, ImHome, ImInstagram, ImPhone, ImTwitter } from "react-icons/im";
 import { useForm } from "react-hook-form";
+import { ColourElementWrapper } from "~/component/ColourElementWrapper";
 
 interface emailData {
   email: string;
@@ -22,7 +23,9 @@ export const Footer = () => {
   } = useColourContext();
 
   return (
+    <ColourElementWrapper type={"secondary"}>
     <div className={"grid xl:grid-cols-4 gap-10 md:grid-cols-2 "} style={{ color: secondaryColour }}>
+
       <div className={"text-sm mb-6"}>
         <div className={"text-4xl font-bold mb-10"}>
           C<span style={{ color: accentColour3 }}>o</span>l<span style={{ color: accentColour3 }}>o</span>rPick
@@ -95,5 +98,6 @@ export const Footer = () => {
         </form>
       </div>
     </div>
+</ColourElementWrapper>
   );
 };

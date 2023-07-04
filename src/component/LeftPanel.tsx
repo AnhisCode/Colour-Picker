@@ -75,7 +75,7 @@ export default function LeftPanel() {
 
   return (
     <div
-      className={`fixed top-0 z-[100] w-[250px] bg-slate-600 bg-opacity-80 ${openPanel ? "" : "-translate-x-[100%]"} duration-500 ease-out`}>
+      className={`fixed top-0 z-[101] w-[250px] bg-slate-600 bg-opacity-80 ${openPanel ? "" : "-translate-x-[100%]"} duration-500 ease-out`}>
       {/*panel toggle*/}
       <div className={"flex items-center font-bold pl-4 text-2xl absolute -right-[25px] " +
         "top-[47%]"}>
