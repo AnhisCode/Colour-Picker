@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { useColourContext } from "~/lib/ColourProvider";
 import Link from "next/link";
 import { rotate } from "next/dist/server/lib/squoosh/impl";
+import { signOut, useSession } from "next-auth/react";
+import { signout } from "next-auth/core/routes";
 
 export const NavbarHayden = () => {
 
   const [activeTab, setActiveTab] = useState<"Home" | "About Us" | "Contact">("Home");
   const [openNav, setOpenNav] = useState(false);
+  const {data: userData} = useSession();
 
 
   const {
@@ -72,12 +75,21 @@ export const NavbarHayden = () => {
               </div>
             }
           </div>
-          <Link href={"/login"}>
-            <div className={"rounded-3xl px-6 py-3 ml-8 hover:scale-[105%] duration-300 ease-out cursor-pointer"}
-                 style={{ backgroundColor: secondaryColour }}>
-              <p className={"font-bold"} style={{ color: accentColour1 }}>Log In</p>
+          {userData ?
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            <div onClick={async () => {await signOut({callbackUrl: "/login"})}}>
+              <div className={"rounded-3xl px-6 py-3 ml-8 hover:scale-[105%] duration-300 ease-out cursor-pointer"}
+                   style={{ backgroundColor: secondaryColour }}>
+                <p className={"font-bold"} style={{ color: accentColour1 }}>Sign Out</p>
+              </div>
             </div>
-          </Link>
+            :
+            <Link href={"/login"}>
+              <div className={"rounded-3xl px-6 py-3 ml-8 hover:scale-[105%] duration-300 ease-out cursor-pointer"}
+                   style={{ backgroundColor: secondaryColour }}>
+                <p className={"font-bold"} style={{ color: accentColour1 }}>Log In</p>
+              </div>
+            </Link>}
         </div>
       </div>
         <div className={`w-12 h-12 rounded-xl md:hidden ${openNav ? "rotate-90" : "rotate-180"} cursor-pointer grid 
@@ -125,13 +137,21 @@ export const NavbarHayden = () => {
                backgroundColor: activeTab === "Contact" ? secondaryColour : "transparent",
                color: activeTab === "Contact" ? accentColour1 : secondaryColour
              }}>Contact</p>
-          <Link href={"/login"} className={`duration-300 ease-out font-bold cursor-pointer p-2 rounded-2xl mb-2`} onClick={() => {
-            setActiveTab("About Us");
-          }}
+          { userData ?
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            <div onClick={async () => {await signOut({callbackUrl: "/login"})}}
+              className={`duration-300 ease-out font-bold cursor-pointer p-2 rounded-2xl mb-2`}
+                  style={{
+                    backgroundColor: "transparent",
+                    color: secondaryColour
+                  }}>Sign Out</div>
+            :
+          <Link href={"/login"} className={`duration-300 ease-out font-bold cursor-pointer p-2 rounded-2xl mb-2`}
              style={{
                backgroundColor: "transparent",
                color: secondaryColour
              }}>Log In</Link>
+          }
         </div>
       </div>}
     </div>

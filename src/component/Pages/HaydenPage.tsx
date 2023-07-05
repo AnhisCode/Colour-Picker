@@ -11,6 +11,7 @@ import { Footer } from "~/component/Footer";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { Fade } from "react-awesome-reveal";
+import { useSession } from "next-auth/react";
 
 const poppins = localFont({
   src: [
