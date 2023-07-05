@@ -1,10 +1,12 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { api } from "~/utils/api";
 import { useColourContext } from "~/lib/ColourProvider";
 import Circle from "@uiw/react-color-circle";
 import { ColourElementWrapper } from "~/component/ColourElementWrapper";
 import { calculateRelativeLuminance } from "~/lib/HexFunctionHelper";
+import { AiOutlineRobot } from "react-icons/ai";
+import { FaRobot } from "react-icons/fa";
 
 interface colourData {
   theme: string;
@@ -20,7 +22,6 @@ interface colourResponse {
 
 export default function LeftPanel() {
 
-  const [openPanel, setOpenPanel] = useState(false);
   const [loading, setLoading] = useState(false);
   const [currentTheme, setCurrentTheme] = useState("default");
   const {
@@ -40,7 +41,9 @@ export default function LeftPanel() {
     accentColour2History,
     accentColour3History,
     editMode,
-    setEditMode
+    setEditMode,
+    openPanel,
+    setOpenPanel
   } = useColourContext();
   const { register, handleSubmit } = useForm<colourData>();
   const getTheme = api.gpt.getColours.useMutation();
@@ -57,6 +60,17 @@ export default function LeftPanel() {
     setLoading(false);
   };
 
+  const generatePaletteWithoutTheme = async () => {
+    setLoading(true);
+    const res = await getTheme.mutateAsync({ theme: "" });
+    setPrimaryColour((res as colourResponse).primaryColour);
+    setSecondaryColour((res as colourResponse).secondaryColour);
+    setAccentColour1((res as colourResponse).accentColour1);
+    setAccentColour2((res as colourResponse).accentColour2);
+    setAccentColour3((res as colourResponse).accentColour3);
+    setLoading(false);
+  }
+
   const relativeLuminance = calculateRelativeLuminance(primaryColour);
   const isDark = relativeLuminance < 0.5;
 
@@ -70,12 +84,12 @@ export default function LeftPanel() {
       accentColour2: accentColour2,
       accentColour3: accentColour3
     });
-    console.log(res)
-  }
+    console.log(res);
+  };
 
   return (
     <div
-      className={`fixed top-0 z-[101] w-[250px] bg-slate-600 bg-opacity-80 ${openPanel ? "" : "-translate-x-[100%]"} duration-500 ease-out`}>
+      className={`fixed top-0 z-[101] text-[#fafafb] w-[300px] bg-[#17171e] ${openPanel ? "" : "-translate-x-[100%]"} duration-500 ease-out`}>
       {/*panel toggle*/}
       <div className={"flex items-center font-bold pl-4 text-2xl absolute -right-[25px] " +
         "top-[47%]"}>
@@ -88,103 +102,187 @@ export default function LeftPanel() {
       <div className={"flex"}>
         <div className={`relative`}>
           {/*panel info*/}
-          <button onClick={() => {setEditMode(!editMode)}}>
-            edit mode
-          </button>
-          <button className={"ml-4"} onClick={handleSave}>
-            SAVE
-          </button>
+          {/*<button onClick={() => {setEditMode(!editMode)}}>*/}
+          {/*  edit mode*/}
+          {/*</button>*/}
+          {/*<button className={"ml-4"} onClick={handleSave}>*/}
+          {/*  SAVE*/}
+          {/*</button>*/}
           <div className={"overflow-scroll h-screen"}>
             <div>
-              <h1 className={"text-white text-2xl text-center pt-4"}>Colour Picker</h1>
+              <div
+                className={"text-4xl my-4 flex justify-center font-bold hover:scale-[105%] duration-300 text-white ease-out cursor-pointer"}>
+                <div>
+                  ColorPick
+                  <div className={"w-24 h-1 bg-white"} />
+                </div>
+              </div>
+
+              <p className={"text-center mb-4 px-4"}>
+                Welcome to <span className={"font-bold"}>ColorPick</span>, a tool to help you decide the colour palette for your next website.
+              </p>
+
+              <p className={"text-center mb-4 px-4"}>
+                to get started, get an <span className={"font-bold"}>AI</span> to generate a colour palette for you by
+                entering a <span className={"font-bold"}>theme</span> below. Alternatively, you can choose to generate a random colour
+                palette without a theme.
+              </p>
+
             </div>
             {!loading ?
-              // eslint-disable-next-line @typescript-eslint/no-misused-promises
-              <form className={"block"} onSubmit={handleSubmit(onSubmit)}>
-                <div>
-                  <label>Theme </label>
-                  <input defaultValue="test" {...register("theme")} required={true} />
-                  eg: moody, light, dark
+              <div className={"mb-40"}>
+                {/* eslint-disable-next-line @typescript-eslint/no-misused-promises*/}
+                <form className={"block px-4 mb-12"} onSubmit={handleSubmit(onSubmit)}>
+                  <div className={"flex mb-4"}>
+                    <label className={"mr-2 flex items-center -translate-y-[11px]"}> <FaRobot /> </label>
+                    <div className={"w-full"}>
+                    <input defaultValue="test" {...register("theme")} required={true}
+                           className={"w-full bg-[#30303d] pl-2 rounded-md focus:outline-none"}/>
+                    <p className={"text-xs pl-2"}>eg. Navy, Beige, Forest</p>
+                    </div>
+                  </div>
+                  <div className={"flex justify-center"}>
+                    <input className={" text-[#fafafb] bg-transparent cursor-pointer font-bold " +
+                      "border-[#fafafb] border-2 hover:text-[#17171e] hover:bg-[#fafafb] rounded-md px-4"}
+                           type="submit" disabled={loading}/>
+                    {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+                    <div onClick={() => generatePaletteWithoutTheme()}
+                      className={" ml-2 text-[#fafafb] bg-transparent cursor-pointer font-bold " +
+                      "border-[#fafafb] border-2 hover:text-[#17171e] hover:bg-[#fafafb] rounded-md px-4"}>
+                      Random
+                    </div>
+                  </div>
+                </form>
+                <h1 className={"font-bold text-center mb-4 text-xl"}>Current Palette</h1>
+                <div className={"flex mx-10 mb-4 rounded-2xl overflow-hidden border-[#30303d] border-[2px]"}>
+                  <div className={"w-[20%] hover:scale-[120%] duration-300 ease-out h-40"} style={{
+                    backgroundColor: primaryColour
+                  }} />
+                  <div className={"w-[20%] hover:scale-[120%] duration-300 ease-out h-40"} style={{
+                    backgroundColor: secondaryColour
+                  }} />
+                  <div className={"w-[20%] hover:scale-[120%] duration-300 ease-out h-40"} style={{
+                    backgroundColor: accentColour1
+                  }} />
+                  <div className={"w-[20%] hover:scale-[120%] duration-300 ease-out h-40"} style={{
+                    backgroundColor: accentColour2
+                  }} />
+                  <div className={"w-[20%] hover:scale-[120%] duration-300 ease-out h-40"} style={{
+                    backgroundColor: accentColour3
+                  }} />
                 </div>
-                <div>
-                  <input className={"bg-gray-200 px-4"} type="submit" disabled={loading} />
-                </div>
-              </form>
-              :
-              <div className={"flex flex-col"}> loading... </div>
-            }
-            <p>Primary Colour</p>
+                <div className={"pl-4"}>
+                  <p>Primary Colour</p>
+                  <div className={"flex"}>
+                    <div className={`w-16 h-16 mr-4 mb-4 mt-2`} style={{ backgroundColor: primaryColour }}>
+                      <ColourElementWrapper type={"primary"}>
+                        <div className={"h-16"} />
+                      </ColourElementWrapper>
+                    </div>
+                    <Circle
+                      colors={primaryColourHistory}
+                      color={primaryColour}
+                      onChange={(color) => {
+                        setPrimaryColour(color.hex);
+                      }}
+                      className={"pt-4"}
+                    />
+                  </div>
+                  <p>Secondary Colour</p>
+                  <div className={"flex"}>
+                    <div className={`w-16 h-16 mr-4 mb-4 mt-2`} style={{ backgroundColor: secondaryColour }}>
+                      <ColourElementWrapper type={"secondary"}>
+                        <div className={"h-16"} />
+                      </ColourElementWrapper>
+                    </div>
+                    <Circle
+                      colors={secondaryColourHistory}
+                      color={secondaryColour}
+                      onChange={(color) => {
+                        setSecondaryColour(color.hex);
+                      }}
+                      className={"pt-4"}
+                    />
+                  </div>
 
-            <div className={`w-16 h-16 m-4`} style={{ backgroundColor: primaryColour }} >
-              <ColourElementWrapper type={"primary"}>
-                <div className={"h-16"}/>
-              </ColourElementWrapper>
-            </div>
-            <Circle
-              colors={primaryColourHistory}
-              color={primaryColour}
-              onChange={(color) => {
-                setPrimaryColour(color.hex);
-              }}
-            />
-            <p>Secondary Colour</p>
-            <div className={`w-16 h-16 m-4`} style={{ backgroundColor: secondaryColour }} >
-              <ColourElementWrapper type={"secondary"}>
-                <div className={"h-16"}/>
-              </ColourElementWrapper>
-            </div>
-            <Circle
-              colors={secondaryColourHistory}
-              color={secondaryColour}
-              onChange={(color) => {
-                setSecondaryColour(color.hex);
-              }}
-            />
-            <p>Accent Colour 1</p>
-            <div className={`w-16 h-16 m-4`} style={{ backgroundColor: accentColour1 }} >
-              <ColourElementWrapper type={"accent1"}>
-                <div className={"h-16"}/>
-              </ColourElementWrapper>
-            </div>
-            <Circle
-              colors={accentColour1History}
-              color={accentColour1}
-              onChange={(color) => {
-                setAccentColour1(color.hex);
-              }
-              }
-            />
-            <p>Accent Colour 2</p>
-            <div className={`w-16 h-16 m-4`} style={{ backgroundColor: accentColour2 }} >
-              <ColourElementWrapper type={"accent2"}>
-                <div className={"h-16"}/>
-              </ColourElementWrapper>
-            </div>
-            <Circle
-              colors={accentColour2History}
-              color={accentColour2}
-              onChange={(color) => {
-                setAccentColour2(color.hex);
-              }
-              }
-            />
-            <p>Accent Colour 3</p>
-            <div className={`w-16 h-16 m-4`} style={{ backgroundColor: accentColour3 }} >
-              <ColourElementWrapper type={"accent3"}>
-                <div className={"h-16"}/>
-              </ColourElementWrapper>
-            </div>
-            <Circle
-              colors={accentColour3History}
-              color={accentColour3}
-              onChange={(color) => {
-                setAccentColour3(color.hex);
-              }
-              }
-            />
-          </div>
+                  <p>Accent Colour 1</p>
+                  <div className={"flex"}>
+                    <div className={`w-16 h-16 mr-4 mb-4 mt-2`} style={{ backgroundColor: accentColour1 }}>
+                      <ColourElementWrapper type={"accent1"}>
+                        <div className={"h-16"} />
+                      </ColourElementWrapper>
+                    </div>
+                    <Circle
+                      colors={accentColour1History}
+                      color={accentColour1}
+                      onChange={(color) => {
+                        setAccentColour1(color.hex);
+                      }
+                      }
+                      className={"pt-4"}
+                    />
+                  </div>
+
+                  <p>Accent Colour 2</p>
+                  <div className={"flex"}>
+                    <div className={`w-16 h-16 mr-4 mb-4 mt-2`} style={{ backgroundColor: accentColour2 }}>
+                      <ColourElementWrapper type={"accent2"}>
+                        <div className={"h-16"} />
+                      </ColourElementWrapper>
+                    </div>
+                    <Circle
+                      colors={accentColour2History}
+                      color={accentColour2}
+                      onChange={(color) => {
+                        setAccentColour2(color.hex);
+                      }
+                      }
+                      className={"pt-4"}
+                    />
+                  </div>
+                  <p>Accent Colour 3</p>
+                  <div className={"flex"}>
+                    <div className={`w-16 h-16 mr-4 mb-4 mt-2`} style={{ backgroundColor: accentColour3 }}>
+                      <ColourElementWrapper type={"accent3"}>
+                        <div className={"h-16"} />
+                      </ColourElementWrapper>
+                    </div>
+                    <Circle
+                      colors={accentColour3History}
+                      color={accentColour3}
+                      onChange={(color) => {
+                        setAccentColour3(color.hex);
+                      }
+                      }
+                      className={"pt-4"}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              :
+              // loading animation
+              <div className="animate-pulse flex space-x-4 px-4 py-6">
+                <div className="flex-1 space-y-6 py-1">
+                  <div className="h-2 bg-slate-700 rounded"></div>
+                  <div className="space-y-3">
+                    <div className="grid grid-cols-3 gap-4">
+                      <div className="h-2 bg-slate-700 rounded col-span-2"></div>
+                      <div className="h-2 bg-slate-700 rounded col-span-1"></div>
+                    </div>
+                    <div className="h-2 bg-slate-700 rounded"></div>
+                    <div className="h-2 bg-slate-700 rounded"></div>
+                  </div>
+                  <div className="h-2 bg-slate-700 rounded"></div>
+                  <div className="h-2 w-[40%] mt-6 bg-slate-700 rounded"></div>
+                  <div className="h-2 bg-slate-700 rounded"></div>
+                </div>
+              </div>
+            }
+
         </div>
       </div>
+    </div>
     </div>
   );
 

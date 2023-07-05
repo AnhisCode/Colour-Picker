@@ -19,6 +19,8 @@ interface ColourContextType {
   accentColour3History: string[];
   editMode: boolean;
   setEditMode: (value: boolean) => void;
+  openPanel: boolean;
+  setOpenPanel: (value: boolean) => void;
 }
 
 // Create the context
@@ -48,6 +50,7 @@ const [secondaryColourHistory, setSecondaryColourHistory] = useState(["#FFFFFF".
 const [accentColour1History, setAccentColour1History] = useState(["#FD749B".toLowerCase()]);
 const [accentColour2History, setAccentColour2History] = useState(["#D2D2D2".toLowerCase()]);
 const [accentColour3History, setAccentColour3History] = useState(["#FFD0D0".toLowerCase()]);
+  const [openPanel, setOpenPanel] = useState(false);
 
   // handles changing state for colours, as well as keep history of last 6 colours
   const setPrimaryColour = (colour: string) => {
@@ -86,7 +89,9 @@ const [accentColour3History, setAccentColour3History] = useState(["#FFD0D0".toLo
     accentColour2History,
     accentColour3History,
     editMode,
-    setEditMode
+    setEditMode,
+    openPanel,
+    setOpenPanel
   };
 
   //TODO ADD EDIT MODE
@@ -105,8 +110,8 @@ const changeColourHelper = (colour: string,
   colour = colour.toLowerCase();
   if (!history.includes(colour)) {
     {
-      if (history.length > 5) {
-        setHistory([colour, ...history.slice(0, 5)]);
+      if (history.length > 7) {
+        setHistory([colour, ...history.slice(0, 7)]);
       } else {
         setHistory([colour, ...history]);
       }

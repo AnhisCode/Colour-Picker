@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { ImKey, ImMail, ImMan } from "react-icons/im";
 import { GoMail } from "react-icons/go";
 import { useRouter } from "next/router";
+import { Fade } from "react-awesome-reveal";
 
 interface LoginProps {
   email: string;
@@ -31,6 +32,7 @@ export const LoginComponent = () => {
   };
 
   return (
+    <Fade>
     <div className={"w-[400px] z-20"}>
       {/*header*/}
       <div onClick={redirect}
@@ -102,5 +104,6 @@ export const LoginComponent = () => {
         </form>
       </div>
     </div>
+    </Fade>
   );
 };

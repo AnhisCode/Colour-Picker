@@ -12,7 +12,7 @@ export default {
       },
       animation: {
         "side-bounce-left": "sideBounceLeft 1s infinite",
-        "side-bounce-right": "sideBounceRight 1s infinite"
+        "side-bounce-right": "sideBounceRight 1s infinite",
       },
       keyframes: {
         sideBounceLeft: {
@@ -22,7 +22,7 @@ export default {
           },
           '50%': {
             transform: 'translateY(0)',
-            animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)',
+            animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1) ',
           },
         },
         sideBounceRight: {

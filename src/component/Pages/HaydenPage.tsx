@@ -10,7 +10,7 @@ import { NavbarHayden } from "~/component/NavBar";
 import { Footer } from "~/component/Footer";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { api } from "~/utils/api";
+import { Fade } from "react-awesome-reveal";
 
 const poppins = localFont({
   src: [
@@ -33,7 +33,8 @@ export const HaydenPage = () => {
     secondaryColour,
     accentColour1,
     accentColour2,
-    accentColour3
+    accentColour3,
+    setOpenPanel,
   } = useColourContext();
 
   const secondaryBrightness = calculateRelativeLuminance(secondaryColour);
@@ -60,6 +61,7 @@ export const HaydenPage = () => {
               <Blob colour={accentColour3} />
             </div>
             <ColourElementWrapper type={"secondary"}>
+              <Fade direction={"up"} triggerOnce={true}>
               <div
                 className={"text-center cursor-default z-[2] duration-300 ease-out mt-[38%] md:scale-100 scale-[80%]"}
                 style={{ color: secondaryColour }}>
@@ -69,20 +71,20 @@ export const HaydenPage = () => {
                 <p className={"text-xl"}>time and customise it how you want to look</p>
                 <div className={"flex justify-center items-center mt-4"}>
                   <ColourElementWrapper type={"secondary"}>
-                    <Link href={"/login"}>
                     <div
                       className={"py-4 z-[30] px-8 rounded-full cursor-pointer hover:scale-[105%] duration-300 ease-out"}
-                      style={{ backgroundColor: secondaryColour, color: accentColour1 }}>
+                      style={{ backgroundColor: secondaryColour, color: accentColour1 }}
+                      onClick={()=>{setOpenPanel(true)}}>
                       <ColourElementWrapper type={"accent1"}>
                         <button className={"text-sm font-bold z-[4]"}>
                           GET STARTED
                         </button>
                       </ColourElementWrapper>
                     </div>
-                    </Link>
                   </ColourElementWrapper>
                 </div>
               </div>
+              </Fade>
             </ColourElementWrapper>
           </div>
         </ColourElementWrapper>
@@ -106,33 +108,39 @@ export const HaydenPage = () => {
                 <div>
                   <div className={"aspect-video bg-white shadow-xl rounded-3xl mb-8"} />
                   <ColourElementWrapper type={"accent1"}>
+                    <Fade direction={"up"} triggerOnce={true}>
                     <h3 style={{ color: accentColour1 }} className={"text-xl font-bold mb-4"}>Begin Right Away</h3>
                     <p className={`leading-extra-loose ${bright ? "text-black" : "text-white"}`}> Fusce ut elit aliquet,
                       fermentum leo vel, tempus nunc.
                       Fusce eu rhoncus augue. Fusce vel metus pharetra, fermentum
                     </p>
+                    </Fade>
                   </ColourElementWrapper>
                 </div>
                 <div>
                   <div className={"aspect-video bg-white shadow-xl rounded-3xl mb-8"} />
                   <ColourElementWrapper type={"accent1"}>
+                    <Fade direction={"up"} triggerOnce={true}>
                     <h3 style={{ color: accentColour1 }} className={"text-xl font-bold mb-4"}>Customise to your
                       liking</h3>
                     <p className={`leading-extra-loose ${bright ? "text-black" : "text-white"}`}> Fusce ut elit aliquet,
                       fermentum leo vel, tempus nunc.
                       Fusce eu rhoncus augue. Fusce vel metus pharetra, fermentum
                     </p>
+                    </Fade>
                   </ColourElementWrapper>
                 </div>
                 <div>
                   <div className={"aspect-video bg-white shadow-xl rounded-3xl mb-8"} />
                   <ColourElementWrapper type={"accent1"}>
+                    <Fade direction={"up"} triggerOnce={true}>
                     <h3 style={{ color: accentColour1 }} className={"text-xl font-bold mb-4"}>Convenient at your
                       fingertips</h3>
                     <p className={`leading-extra-loose ${bright ? "text-black" : "text-white"}`}> Fusce ut elit aliquet,
                       fermentum leo vel, tempus nunc.
                       Fusce eu rhoncus augue. Fusce vel metus pharetra, fermentum
                     </p>
+                    </Fade>
                   </ColourElementWrapper>
                 </div>
               </div>
@@ -162,9 +170,12 @@ export const HaydenPage = () => {
             <div className={"w-full flex justify-center items-center xl:px-32 px-20 translate-y-[40px]"}>
               {/*image  */}
               <div className={"grid md:grid-cols-2 grid-cols-1 w-full gap-16 mb-10 xl:mb-20"}>
+                <Fade direction={"left"} triggerOnce={true}>
                 <div className={"bg-white w-full rounded-3xl shadow-2xl aspect-video"} />
+                </Fade>
                 <div className={"xl:w-[70%]"}>
                   <ColourElementWrapper type={"secondary"}>
+                    <Fade direction={"right"} triggerOnce={true}>
                     <h3 style={{ color: secondaryColour }} className={"text-xl font-bold mb-4"}>Customise to your
                       liking</h3>
                     <p className={"leading-extra-loose"} style={{ color: secondaryColour }}> Fusce ut elit aliquet,
@@ -172,18 +183,18 @@ export const HaydenPage = () => {
                       Fusce eu rhoncus augue. Fusce vel metus pharetra, fermentum
                     </p>
                     <div className={"flex"}>
-                      <Link href={"/login"}>
                       <div
                         className={"py-4 z-[30] px-8 mt-8 rounded-full cursor-pointer hover:scale-[105%] duration-300 ease-out"}
-                        style={{ backgroundColor: secondaryColour, color: accentColour1 }}>
+                        style={{ backgroundColor: secondaryColour, color: accentColour1 }}
+                        onClick={()=>{setOpenPanel(true)}}>
                         <ColourElementWrapper type={"accent1"}>
                           <button className={"text-sm font-bold z-[4]"}>
                             GET STARTED
                           </button>
                         </ColourElementWrapper>
                       </div>
-                      </Link>
                     </div>
+                    </Fade>
                   </ColourElementWrapper>
                 </div>
               </div>
@@ -204,6 +215,8 @@ export const HaydenPage = () => {
                     <h2 className={"mb-4"}>With ...</h2>
                     <div className={"w-16 h-2 rounded-full"} style={{ backgroundColor: primaryColour }} />
                   </div>
+                  <Fade direction={"up"} triggerOnce={true}>
+                    <div>
                   <p className={`leading-extra-loose ${bright ? "text-black" : "text-white"}`}>CoinBase is an online
                     site and a p2admin platform that allows
                     users to buy,
@@ -219,6 +232,8 @@ export const HaydenPage = () => {
                       </button>
                     </div>
                   </div>
+                    </div>
+                  </Fade>
                 </div>
                 <div className={"items-center relative flex h-[400px]"}>
                   <div
@@ -299,17 +314,16 @@ export const HaydenPage = () => {
                 <ImageCarousel />
                 <div className={"flex justify-center"}>
                   <ColourElementWrapper type={"secondary"}>
-                    <Link href={"/login"}>
                     <div
                       className={"py-4 md:mb-0 mb-12 z-[30] px-8 rounded-full cursor-pointer hover:scale-[105%] duration-300 ease-out"}
-                      style={{ backgroundColor: secondaryColour, color: accentColour1 }}>
+                      style={{ backgroundColor: secondaryColour, color: accentColour1 }}
+                      onClick={()=>{setOpenPanel(true)}}>
                       <ColourElementWrapper type={"accent1"}>
                         <button className={"text-sm text-center font-bold z-[11]"}>
                           GET STARTED
                         </button>
                       </ColourElementWrapper>
                     </div>
-                    </Link>
                   </ColourElementWrapper>
                 </div>
               </div>
@@ -326,13 +340,13 @@ export const HaydenPage = () => {
           <div className={`md:block absolute scale-[70%] z-20 rotate-[34deg] left-10 top-0 hidden`}>
             <Blob colour={accentColour2} />
           </div>
-          <div className={"absolute scale-[80%] z-10 rotate-[210deg] right-10 -top-5"}>
+          <div className={"absolute scale-[80%] z-[1] rotate-[210deg] right-10 -top-5"}>
             <Blob colour={accentColour3} />
           </div>
           <div className={"w-full relative flex justify-center items-center py-20"} style={{
             backgroundColor: secondaryColour
           }}>
-            <div className={`text-center  ${bright ? "text-black" : "text-white"}`}>
+            <div className={`text-center  z-[2] ${bright ? "text-black" : "text-white"}`}>
               <div className={"flex justify-center translate-y-0 md:translate-y-[-100%]"}>
                 <ColourElementWrapper type={"accent1"}>
                   <h2 className={"text-2xl font-bold"} style={{ color: accentColour1 }}>Experience the magic</h2>
@@ -341,18 +355,20 @@ export const HaydenPage = () => {
                   </div>
                 </ColourElementWrapper>
               </div>
-
+              <Fade direction={"up"} triggerOnce={true}>
               <p className={"mb-4"}>Discover awesome way to build website in a</p>
               <p>new fashion</p>
               <div className={"flex justify-center"}>
                 <div
                   className={"py-4 z-[30] px-8 mt-8 rounded-full cursor-pointer hover:scale-[105%] duration-300 ease-out"}
-                  style={{ backgroundColor: primaryColour, color: secondaryColour }}>
+                  style={{ backgroundColor: primaryColour, color: secondaryColour }}
+                  onClick={()=>{setOpenPanel(true)}}>
                   <button className={"text-sm font-bold z-[11]"}>
                     Get Started
                   </button>
                 </div>
               </div>
+              </Fade>
             </div>
           </div>
           <div className={"absolute rotate-[-179deg] scale-x-[-150%] z-10 translate-x-[10px] -translate-y-[75px]"}>

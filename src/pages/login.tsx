@@ -67,7 +67,7 @@ const Login: React.FC = () => {
     <div className={"w-screen relative font-poppins h-screen flex justify-center items-center overflow-hidden"} style={{
       background: `radial-gradient(circle, ${hexToRGB(primaryColour)} 20%, ${hexToRGB(accentColour1)} 100%)`
     }}>
-      <div className={"flex justify-center"} style={{
+      <div className={"flex justify-center z-10"} style={{
         color: secondaryColour
       }}>
         <LoginComponent />
