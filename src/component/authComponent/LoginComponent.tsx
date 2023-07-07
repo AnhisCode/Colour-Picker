@@ -33,22 +33,13 @@ export const LoginComponent = () => {
     accentColour3
   } = useColourContext();
 
-  const router = useRouter();
-  const redirect = () => {
-    void router.push("/");
-  };
+
+
 
   return (
     <Fade>
       <div className={"w-[400px] z-20"}>
-        {/*header*/}
-        <div onClick={redirect}
-             className={"flex justify-center mb-6 cursor-pointer hover:scale-[105%] duration-300 ease-out"}>
-          <div className={"text-6xl font-bold text-center"}>
-            C<span style={{ color: accentColour3 }}>o</span>l<span style={{ color: accentColour3 }}>o</span>rPick
-            <div className={"w-36 h-1"} style={{ backgroundColor: accentColour3 }} />
-          </div>
-        </div>
+
 
         {/*Login input*/}
         <div className={"w-full flex justify-center py-2"} style={{

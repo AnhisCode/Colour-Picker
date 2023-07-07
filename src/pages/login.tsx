@@ -2,7 +2,10 @@ import { useColourContext } from "~/lib/ColourProvider";
 import { hexToRGB } from "~/lib/HexFunctionHelper";
 import { Blob } from "~/SVGComponents/page1/Blob";
 import React, { useEffect, useState } from "react";
-import { LoginComponent } from "~/component/LoginComponent";
+import { LoginComponent } from "~/component/authComponent/LoginComponent";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import { SignOutComponent } from "~/component/authComponent/SignOutComponent";
 
 
 const Login: React.FC = () => {
@@ -16,6 +19,8 @@ const Login: React.FC = () => {
   const [leftChange2, setLeftChange2] = useState<number>(1);
   const [rotation1, setRotation1] = useState<number>(Math.random() * 360);
   const [rotation2, setRotation2] = useState<number>(Math.random() * 360);
+
+  const {data: userData} = useSession();
 
 
   useEffect(() => {
@@ -62,6 +67,10 @@ const Login: React.FC = () => {
     accentColour2,
     accentColour3
   } = useColourContext();
+  const router = useRouter();
+  const redirect = () => {
+    void router.push("/");
+  };
 
   return (
     <div className={"w-screen relative font-poppins h-screen flex justify-center items-center overflow-hidden"} style={{
@@ -70,7 +79,18 @@ const Login: React.FC = () => {
       <div className={"flex justify-center z-10"} style={{
         color: secondaryColour
       }}>
-        <LoginComponent />
+        <div>
+        {/*header*/}
+        <div onClick={redirect}
+             className={"flex justify-center z-20 mb-6 cursor-pointer hover:scale-[105%] duration-300 ease-out"}>
+          <div className={"text-6xl font-bold text-center"}>
+            C<span style={{ color: accentColour3 }}>o</span>l<span style={{ color: accentColour3 }}>o</span>rPick
+            <div className={"w-36 h-1"} style={{ backgroundColor: accentColour3 }} />
+          </div>
+        </div>
+          {userData? <SignOutComponent/> : <LoginComponent />}
+
+        </div>
       </div>
       <div className={"absolute top-0 z-0"} style={{
         top: `${top1}px`,

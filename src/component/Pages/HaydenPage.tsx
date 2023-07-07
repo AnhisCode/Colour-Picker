@@ -43,7 +43,8 @@ export const HaydenPage = () => {
   const darkerPrimary = darkenHexColor(primaryColour);
 
   return (
-    <div className={`w-full ${poppins.variable} font-poppins overflow-hidden`}
+    <>
+    <main className={`w-full ${poppins.variable} font-poppins overflow-hidden`}
          style={{ backgroundColor: darkerPrimary }}>
       <NavbarHayden />
       <div>
@@ -388,7 +389,8 @@ export const HaydenPage = () => {
           </div>
         </ColourElementWrapper>
       </div>
-    </div>
+    </main>
+    </>
   );
 
 };

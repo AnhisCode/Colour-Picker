@@ -5,8 +5,11 @@ import { useColourContext } from "~/lib/ColourProvider";
 import Circle from "@uiw/react-color-circle";
 import { ColourElementWrapper } from "~/component/ColourElementWrapper";
 import { calculateRelativeLuminance } from "~/lib/HexFunctionHelper";
-import { AiOutlineRobot } from "react-icons/ai";
+import { AiFillCheckCircle } from "react-icons/ai";
 import { FaRobot } from "react-icons/fa";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { BiSolidErrorCircle } from "react-icons/bi";
 
 interface colourData {
   theme: string;
@@ -23,7 +26,14 @@ interface colourResponse {
 export default function LeftPanel() {
 
   const [loading, setLoading] = useState(false);
+  const [saveLoading, setSaveLoading] = useState(false);
   const [currentTheme, setCurrentTheme] = useState("default");
+  const [savedTheme, setSavedTheme] = useState("");
+  const [savedSuccess, setSavedSuccess] = useState(false);
+
+
+
+  const { data: userData } = useSession();
   const {
     setPrimaryColour,
     setSecondaryColour,
@@ -69,13 +79,14 @@ export default function LeftPanel() {
     setAccentColour2((res as colourResponse).accentColour2);
     setAccentColour3((res as colourResponse).accentColour3);
     setLoading(false);
-  }
+  };
 
   const relativeLuminance = calculateRelativeLuminance(primaryColour);
   const isDark = relativeLuminance < 0.5;
 
   const uploadColourPalette = api.colour.addColourPalette.useMutation();
   const handleSave = async () => {
+    setSaveLoading(true);
     const res = await uploadColourPalette.mutateAsync({
       themeName: currentTheme,
       primaryColour: primaryColour,
@@ -84,7 +95,13 @@ export default function LeftPanel() {
       accentColour2: accentColour2,
       accentColour3: accentColour3
     });
-    console.log(res);
+    if (res.status == "success") {
+      setSavedSuccess(true);
+    } else {
+      setSavedSuccess(false);
+    }
+    setSaveLoading(false);
+    setSavedTheme(currentTheme);
   };
 
   return (
@@ -105,9 +122,6 @@ export default function LeftPanel() {
           {/*<button onClick={() => {setEditMode(!editMode)}}>*/}
           {/*  edit mode*/}
           {/*</button>*/}
-          {/*<button className={"ml-4"} onClick={handleSave}>*/}
-          {/*  SAVE*/}
-          {/*</button>*/}
           <div className={"overflow-scroll h-screen"}>
             <div>
               <div
@@ -119,12 +133,14 @@ export default function LeftPanel() {
               </div>
 
               <p className={"text-center mb-4 px-4"}>
-                Welcome to <span className={"font-bold"}>ColorPick</span>, a tool to help you decide the colour palette for your next website.
+                Welcome to <span className={"font-bold"}>ColorPick</span>, a tool to help you decide the colour palette
+                for your next website.
               </p>
 
               <p className={"text-center mb-4 px-4"}>
                 to get started, get an <span className={"font-bold"}>AI</span> to generate a colour palette for you by
-                entering a <span className={"font-bold"}>theme</span> below. Alternatively, you can choose to generate a random colour
+                entering a <span className={"font-bold"}>theme</span> below. Alternatively, you can choose to generate a
+                random colour
                 palette without a theme.
               </p>
 
@@ -136,19 +152,20 @@ export default function LeftPanel() {
                   <div className={"flex mb-4"}>
                     <label className={"mr-2 flex items-center -translate-y-[11px]"}> <FaRobot /> </label>
                     <div className={"w-full"}>
-                    <input defaultValue="test" {...register("theme")} required={true}
-                           className={"w-full bg-[#30303d] pl-2 rounded-md focus:outline-none"}/>
-                    <p className={"text-xs pl-2"}>eg. Navy, Beige, Forest</p>
+                      <input defaultValue="test" {...register("theme")} required={true}
+                             className={"w-full bg-[#30303d] pl-2 rounded-md focus:outline-none"}
+                             maxLength={20}/>
+                      <p className={"text-xs pl-2"}>eg. Navy, Beige, Forest</p>
                     </div>
                   </div>
                   <div className={"flex justify-center"}>
                     <input className={" text-[#fafafb] bg-transparent cursor-pointer font-bold " +
                       "border-[#fafafb] border-2 hover:text-[#17171e] hover:bg-[#fafafb] rounded-md px-4"}
-                           type="submit" disabled={loading}/>
+                           type="submit" value={"Generate"} disabled={loading} />
                     {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
                     <div onClick={() => generatePaletteWithoutTheme()}
-                      className={" ml-2 text-[#fafafb] bg-transparent cursor-pointer font-bold " +
-                      "border-[#fafafb] border-2 hover:text-[#17171e] hover:bg-[#fafafb] rounded-md px-4"}>
+                         className={" ml-2 text-[#fafafb] bg-transparent cursor-pointer font-bold " +
+                           "border-[#fafafb] border-2 hover:text-[#17171e] hover:bg-[#fafafb] rounded-md px-4"}>
                       Random
                     </div>
                   </div>
@@ -258,6 +275,51 @@ export default function LeftPanel() {
                     />
                   </div>
                 </div>
+                <section>
+                  <div className={"text-center text-2xl mt-4"}>Save?</div>
+                  {userData ?
+                    <div>
+                      <p className={"text-center my-4"}>
+                        {!saveLoading ? "Save this palette to your account?" : "Saving..."}
+                      </p>
+                      <div className={"flex justify-center"}>
+                        {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+                        <button onClick={handleSave}
+                                className={"text-[#fafafb] bg-transparent cursor-pointer font-bold " +
+                                  "border-[#fafafb] border-2 hover:text-[#17171e] hover:bg-[#fafafb] rounded-md px-4"}
+                                disabled={saveLoading}>
+                          SAVE
+                        </button>
+                      </div>
+                      {savedTheme != "" &&
+                        (savedSuccess ? <div>
+                          <div className={"flex justify-center text-green-400 pt-4"}>
+                            <div className={"flex items-center"}>
+                              <AiFillCheckCircle className={"text-center mr-2"} />
+                            </div>
+                            <p>Successfully saved theme</p>
+                          </div>
+                          <p className={"text-center text-green-400"}>{currentTheme}</p>
+                        </div> : <div className={"flex justify-center text-red-400 pt-4"}>
+                              <div className={"flex items-center"}>
+                                <BiSolidErrorCircle className={"text-center mr-2"} />
+                              </div>
+                              <p>Error Saving Theme</p>
+                            </div>)}
+                    </div> : <div>
+                      <p className={"text-center my-4"}>
+                        Please login to save this palette
+                      </p>
+                      <div className={"flex justify-center"}>
+                        <Link href={"/login"}
+                              className={"text-[#fafafb] bg-transparent cursor-pointer font-bold " +
+                                "border-[#fafafb] border-2 hover:text-[#17171e] hover:bg-[#fafafb] rounded-md px-4"}>
+                          Log In
+                        </Link>
+                      </div>
+                    </div>
+                  }
+                </section>
               </div>
 
               :
@@ -279,10 +341,9 @@ export default function LeftPanel() {
                 </div>
               </div>
             }
-
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 
