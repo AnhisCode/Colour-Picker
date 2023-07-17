@@ -6,6 +6,7 @@ import { LoginComponent } from "~/components/authComponent/LoginComponent";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { SignOutComponent } from "~/components/authComponent/SignOutComponent";
+import Head from "next/head";
 
 
 const Login: React.FC = () => {
@@ -72,7 +73,31 @@ const Login: React.FC = () => {
     void router.push("/");
   };
 
+  const [isWindows, setIsWindows] = useState(false);
+
+  useEffect(() => {
+    const userAgent = window.navigator.userAgent;
+    setIsWindows(userAgent.includes('Windows'));
+  }, []);
+
+
   return (
+    <>
+    <Head>
+      <title>ColorPick</title>
+      <meta name="description" content="AI Colour Palette Generator using GPT AI" />
+      <link rel="icon" href="/ColorPickerIcon.PNG" />
+      {isWindows &&
+        <style>
+          {
+            `::-webkit-scrollbar{
+              display: none;
+              }
+              `
+          }
+        </style>
+      }
+    </Head>
     <div className={"w-screen relative font-poppins h-screen flex justify-center items-center overflow-hidden"} style={{
       background: `radial-gradient(circle, ${hexToRGB(primaryColour)} 20%, ${hexToRGB(accentColour1)} 100%)`
     }}>
@@ -107,7 +132,7 @@ const Login: React.FC = () => {
         <Blob colour={accentColour2} />
       </div>
     </div>
-
+    </>
 
   );
 };

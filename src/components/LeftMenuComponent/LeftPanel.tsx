@@ -10,7 +10,8 @@ import { FaRobot } from "react-icons/fa";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { BiSolidErrorCircle } from "react-icons/bi";
-import { ColourPaletteSearch } from "~/components/ColourPaletteSearch";
+import { ColourPaletteSearch } from "~/components/LeftMenuComponent/ColourPaletteSearch";
+import { SavePalette } from "~/components/LeftMenuComponent/SavePalette";
 
 interface colourData {
   theme: string;
@@ -27,12 +28,7 @@ interface colourResponse {
 export default function LeftPanel() {
 
   const [loading, setLoading] = useState(false);
-  const [saveLoading, setSaveLoading] = useState(false);
   const [currentTheme, setCurrentTheme] = useState("default");
-  const [savedTheme, setSavedTheme] = useState("");
-  const [savedSuccess, setSavedSuccess] = useState(false);
-
-
 
   const { data: userData } = useSession();
   const {
@@ -58,10 +54,10 @@ export default function LeftPanel() {
   } = useColourContext();
   const { register, handleSubmit } = useForm<colourData>();
   const getTheme = api.gpt.getColours.useMutation();
+
   const onSubmit: SubmitHandler<colourData> = async (data) => {
-    setCurrentTheme(data.theme);
-    console.log(data.theme);
     setLoading(true);
+    setCurrentTheme(data.theme)
     const res = await getTheme.mutateAsync({ theme: data.theme });
     setPrimaryColour((res as colourResponse).primaryColour);
     setSecondaryColour((res as colourResponse).secondaryColour);
@@ -73,6 +69,7 @@ export default function LeftPanel() {
 
   const generatePaletteWithoutTheme = async () => {
     setLoading(true);
+    setCurrentTheme("")
     const res = await getTheme.mutateAsync({ theme: "" });
     setPrimaryColour((res as colourResponse).primaryColour);
     setSecondaryColour((res as colourResponse).secondaryColour);
@@ -84,26 +81,6 @@ export default function LeftPanel() {
 
   const relativeLuminance = calculateRelativeLuminance(primaryColour);
   const isDark = relativeLuminance < 0.5;
-
-  const uploadColourPalette = api.colour.addColourPalette.useMutation();
-  const handleSave = async () => {
-    setSaveLoading(true);
-    const res = await uploadColourPalette.mutateAsync({
-      themeName: currentTheme,
-      primaryColour: primaryColour,
-      secondaryColour: secondaryColour,
-      accentColour1: accentColour1,
-      accentColour2: accentColour2,
-      accentColour3: accentColour3
-    });
-    if (res.status == "success") {
-      setSavedSuccess(true);
-    } else {
-      setSavedSuccess(false);
-    }
-    setSaveLoading(false);
-    setSavedTheme(currentTheme);
-  };
 
   return (
     <div
@@ -277,48 +254,7 @@ export default function LeftPanel() {
                 {/*save*/}
                 <section>
                   <div className={"text-center text-2xl mt-4"}>Save?</div>
-                  {userData ?
-                    <div>
-                      <p className={"text-center my-4"}>
-                        {!saveLoading ? "Save this palette to your account?" : "Saving..."}
-                      </p>
-                      <div className={"flex justify-center"}>
-                        {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
-                        <button onClick={handleSave}
-                                className={"text-menu-text bg-transparent cursor-pointer font-bold " +
-                                  "border-menu-text border-2 hover:text-menu hover:bg-menu-text rounded-md px-4"}
-                                disabled={saveLoading}>
-                          SAVE
-                        </button>
-                      </div>
-                      {savedTheme != "" &&
-                        (savedSuccess ? <div>
-                          <div className={"flex justify-center text-green-400 pt-4"}>
-                            <div className={"flex items-center"}>
-                              <AiFillCheckCircle className={"text-center mr-2"} />
-                            </div>
-                            <p>Successfully saved theme</p>
-                          </div>
-                          <p className={"text-center text-green-400"}>{currentTheme}</p>
-                        </div> : <div className={"flex justify-center text-red-400 pt-4"}>
-                              <div className={"flex items-center"}>
-                                <BiSolidErrorCircle className={"text-center mr-2"} />
-                              </div>
-                              <p>Error Saving Theme</p>
-                            </div>)}
-                    </div> : <div>
-                      <p className={"text-center my-4"}>
-                        Please login to save this palette
-                      </p>
-                      <div className={"flex justify-center"}>
-                        <Link href={"/login"}
-                              className={"text-menu-text bg-transparent cursor-pointer font-bold " +
-                                "border-menu-text border-2 hover:text-menu hover:bg-menu-text rounded-md px-4"}>
-                          Log In
-                        </Link>
-                      </div>
-                    </div>
-                  }
+                  <SavePalette currentTheme={currentTheme}/>
                 </section>
 
                 {/*search*/}

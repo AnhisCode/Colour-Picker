@@ -3,7 +3,7 @@ import { SessionProvider } from "next-auth/react";
 import { type AppType } from "next/app";
 import { api } from "~/utils/api";
 import "~/styles/globals.css";
-import LeftPanel from "~/components/LeftPanel";
+import LeftPanel from "~/components/LeftMenuComponent/LeftPanel";
 import { MyColourProvider } from "~/lib/ColourProvider";
 import React from "react";
 import { DevSupport } from "@react-buddy/ide-toolbox-next";

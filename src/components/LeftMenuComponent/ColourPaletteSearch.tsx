@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { FaRobot, FaSearch } from "react-icons/fa";
 import { useDebounce, useDebouncedCallback } from "use-debounce";
 import { HiRefresh } from "react-icons/hi";
-import { ApplyPaletteModal } from "~/components/ApplyPaletteModal";
+import { ApplyPaletteModal } from "~/components/LeftMenuComponent/ApplyPaletteModal";
 
 export interface colorPalette {
   primaryColour: string;

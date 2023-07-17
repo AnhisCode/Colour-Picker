@@ -18,7 +18,7 @@ export default function Home() {
       <Head>
         <title>ColorPick</title>
         <meta name="description" content="AI Colour Palette Generator using GPT AI" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/ColorPickerIcon.PNG" />
         {isWindows &&
           <style>
             {
