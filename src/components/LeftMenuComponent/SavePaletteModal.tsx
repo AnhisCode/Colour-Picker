@@ -29,29 +29,6 @@ export function SavePaletteModal({isOpen, setIsOpen, currentTheme} : ColorPalett
     setIsOpen(false)
   }
 
-  const toastBody = () => (
-    <div>
-      <h1 className={"font-bold text-menu-text"}>{`Successfully saved palette:`}</h1>
-      <div className={"flex mx-10 mb-6 mt-4 rounded-2xl overflow-hidden border-[#30303d] border-[2px]"}>
-        <div className={"w-[20%] duration-300 ease-out h-20"} style={{
-          backgroundColor: primaryColour
-        }} />
-        <div className={"w-[20%] duration-300 ease-out h-20"} style={{
-          backgroundColor: secondaryColour
-        }} />
-        <div className={"w-[20%] duration-300 ease-out h-20"} style={{
-          backgroundColor: accentColour1
-        }} />
-        <div className={"w-[20%] duration-300 ease-out h-20"} style={{
-          backgroundColor: accentColour2
-        }} />
-        <div className={"w-[20%] duration-300 ease-out h-20"} style={{
-          backgroundColor: accentColour3
-        }} />
-      </div>
-    </div>
-  )
-
   const handleSave: SubmitHandler<paletteData> = async (data) => {
     setSaveLoading(true);
     const res = await uploadColourPalette.mutateAsync({
@@ -65,6 +42,33 @@ export function SavePaletteModal({isOpen, setIsOpen, currentTheme} : ColorPalett
     if (res.status == "success") {
       setSavedSuccess(true);
       closeModal();
+
+      const toastBody = () => (
+        <div>
+          <h1 className={"font-bold text-menu-text"}>{`Successfully saved palette:`}</h1>
+          <div className={"flex mx-10 mb-2 mt-4 rounded-2xl overflow-hidden border-[#30303d] border-[2px]"}>
+            <div className={"w-[20%] duration-300 ease-out h-20"} style={{
+              backgroundColor: primaryColour
+            }} />
+            <div className={"w-[20%] duration-300 ease-out h-20"} style={{
+              backgroundColor: secondaryColour
+            }} />
+            <div className={"w-[20%] duration-300 ease-out h-20"} style={{
+              backgroundColor: accentColour1
+            }} />
+            <div className={"w-[20%] duration-300 ease-out h-20"} style={{
+              backgroundColor: accentColour2
+            }} />
+            <div className={"w-[20%] duration-300 ease-out h-20"} style={{
+              backgroundColor: accentColour3
+            }} />
+          </div>
+          <div className={"flex justify-center"}>
+            <h1 className={"font-bold text-menu-text"}>{`${data.theme}`}</h1>
+          </div>
+        </div>
+      )
+
       toast.success(toastBody, {
         position: "top-right",
         autoClose: 5000,

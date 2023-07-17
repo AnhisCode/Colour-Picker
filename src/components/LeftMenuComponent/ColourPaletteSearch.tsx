@@ -59,7 +59,11 @@ export const ColourPaletteSearch = () => {
     return `${month || ""} ${day} ${year}`;
   }
 
-  // console.log(paletteData);
+  //filter colour palettes
+  const filteredPalettes = paletteData && paletteData.palettes && paletteData.palettes.filter((palette) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
+    return palette.themeName.toLowerCase().includes(inputValue.toLowerCase());
+  }) || [];
 
   return (
     <div className={"px-4"}>
@@ -84,7 +88,7 @@ export const ColourPaletteSearch = () => {
 
 
           {/*element*/}
-          {paletteData && paletteData.palettes && paletteData.palettes.map((palette, key) => {
+          {filteredPalettes.map((palette, key) => {
             return(
           <div onClick={() => {
             setCurrentPalette({
@@ -97,7 +101,7 @@ export const ColourPaletteSearch = () => {
             setOpenModal(true)
           }
           }
-            className={`h-14 ${key != paletteData.palettes.length - 1 ? "border-b-2 border-menu" : ""} flex justify-between cursor-pointer group overscroll-contain`} key={key}>
+            className={`h-14 ${key != filteredPalettes.length - 1 ? "border-b-2 border-menu" : ""} flex justify-between cursor-pointer group overscroll-contain`} key={key}>
             <div>
             <h2 className={"font-bold pt-2 pl-2"}>{palette.themeName} </h2>
             {/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument */}
