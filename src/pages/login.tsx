@@ -2,10 +2,10 @@ import { useColourContext } from "~/lib/ColourProvider";
 import { hexToRGB } from "~/lib/HexFunctionHelper";
 import { Blob } from "~/SVGComponents/page1/Blob";
 import React, { useEffect, useState } from "react";
-import { LoginComponent } from "~/component/authComponent/LoginComponent";
+import { LoginComponent } from "~/components/authComponent/LoginComponent";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import { SignOutComponent } from "~/component/authComponent/SignOutComponent";
+import { SignOutComponent } from "~/components/authComponent/SignOutComponent";
 
 
 const Login: React.FC = () => {

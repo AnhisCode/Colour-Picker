@@ -3,13 +3,14 @@ import { type SubmitHandler, useForm } from "react-hook-form";
 import { api } from "~/utils/api";
 import { useColourContext } from "~/lib/ColourProvider";
 import Circle from "@uiw/react-color-circle";
-import { ColourElementWrapper } from "~/component/ColourElementWrapper";
+import { ColourElementWrapper } from "~/components/ColourElementWrapper";
 import { calculateRelativeLuminance } from "~/lib/HexFunctionHelper";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { FaRobot } from "react-icons/fa";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { BiSolidErrorCircle } from "react-icons/bi";
+import { ColourPaletteSearch } from "~/components/ColourPaletteSearch";
 
 interface colourData {
   theme: string;
@@ -106,7 +107,7 @@ export default function LeftPanel() {
 
   return (
     <div
-      className={`fixed top-0 z-[101] text-[#fafafb] w-[300px] bg-[#17171e] ${openPanel ? "" : "-translate-x-[100%]"} duration-500 ease-out`}>
+      className={`fixed top-0 z-[101] text-menu-text w-[300px] bg-menu overscroll-contain ${openPanel ? "" : "-translate-x-[100%]"} duration-500 ease-out`}>
       {/*panel toggle*/}
       <div className={"flex items-center font-bold pl-4 text-2xl absolute -right-[25px] " +
         "top-[47%]"}>
@@ -152,20 +153,20 @@ export default function LeftPanel() {
                   <div className={"flex mb-4"}>
                     <label className={"mr-2 flex items-center -translate-y-[11px]"}> <FaRobot /> </label>
                     <div className={"w-full"}>
-                      <input defaultValue="test" {...register("theme")} required={true}
+                      <input placeholder="theme" {...register("theme")} required={true}
                              className={"w-full bg-[#30303d] pl-2 rounded-md focus:outline-none"}
                              maxLength={20}/>
                       <p className={"text-xs pl-2"}>eg. Navy, Beige, Forest</p>
                     </div>
                   </div>
                   <div className={"flex justify-center"}>
-                    <input className={" text-[#fafafb] bg-transparent cursor-pointer font-bold " +
-                      "border-[#fafafb] border-2 hover:text-[#17171e] hover:bg-[#fafafb] rounded-md px-4"}
+                    <input className={" text-menu-text bg-transparent cursor-pointer font-bold " +
+                      "border-menu-text border-2 hover:text-menu hover:bg-menu-text rounded-md px-4"}
                            type="submit" value={"Generate"} disabled={loading} />
                     {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
                     <div onClick={() => generatePaletteWithoutTheme()}
-                         className={" ml-2 text-[#fafafb] bg-transparent cursor-pointer font-bold " +
-                           "border-[#fafafb] border-2 hover:text-[#17171e] hover:bg-[#fafafb] rounded-md px-4"}>
+                         className={" ml-2 text-menu-text bg-transparent cursor-pointer font-bold " +
+                           "border-menu-text border-2 hover:text-menu hover:bg-menu-text rounded-md px-4"}>
                       Random
                     </div>
                   </div>
@@ -234,8 +235,7 @@ export default function LeftPanel() {
                       color={accentColour1}
                       onChange={(color) => {
                         setAccentColour1(color.hex);
-                      }
-                      }
+                      }}
                       className={"pt-4"}
                     />
                   </div>
@@ -252,8 +252,7 @@ export default function LeftPanel() {
                       color={accentColour2}
                       onChange={(color) => {
                         setAccentColour2(color.hex);
-                      }
-                      }
+                      }}
                       className={"pt-4"}
                     />
                   </div>
@@ -269,12 +268,13 @@ export default function LeftPanel() {
                       color={accentColour3}
                       onChange={(color) => {
                         setAccentColour3(color.hex);
-                      }
-                      }
+                      }}
                       className={"pt-4"}
                     />
                   </div>
                 </div>
+
+                {/*save*/}
                 <section>
                   <div className={"text-center text-2xl mt-4"}>Save?</div>
                   {userData ?
@@ -285,8 +285,8 @@ export default function LeftPanel() {
                       <div className={"flex justify-center"}>
                         {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
                         <button onClick={handleSave}
-                                className={"text-[#fafafb] bg-transparent cursor-pointer font-bold " +
-                                  "border-[#fafafb] border-2 hover:text-[#17171e] hover:bg-[#fafafb] rounded-md px-4"}
+                                className={"text-menu-text bg-transparent cursor-pointer font-bold " +
+                                  "border-menu-text border-2 hover:text-menu hover:bg-menu-text rounded-md px-4"}
                                 disabled={saveLoading}>
                           SAVE
                         </button>
@@ -312,13 +312,19 @@ export default function LeftPanel() {
                       </p>
                       <div className={"flex justify-center"}>
                         <Link href={"/login"}
-                              className={"text-[#fafafb] bg-transparent cursor-pointer font-bold " +
-                                "border-[#fafafb] border-2 hover:text-[#17171e] hover:bg-[#fafafb] rounded-md px-4"}>
+                              className={"text-menu-text bg-transparent cursor-pointer font-bold " +
+                                "border-menu-text border-2 hover:text-menu hover:bg-menu-text rounded-md px-4"}>
                           Log In
                         </Link>
                       </div>
                     </div>
                   }
+                </section>
+
+                {/*search*/}
+                <section className={""}>
+                  <div className={"text-center text-2xl mt-8 mb-4"}>Saved Presets</div>
+                  <ColourPaletteSearch/>
                 </section>
               </div>
 

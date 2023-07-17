@@ -2,7 +2,7 @@ import React from "react";
 import { useColourContext } from "~/lib/ColourProvider";
 import { ImFacebook, ImGooglePlus, ImHome, ImInstagram, ImPhone, ImTwitter } from "react-icons/im";
 import { useForm } from "react-hook-form";
-import { ColourElementWrapper } from "~/component/ColourElementWrapper";
+import { ColourElementWrapper } from "~/components/ColourElementWrapper";
 
 interface emailData {
   email: string;

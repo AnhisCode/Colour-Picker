@@ -1,6 +1,6 @@
 import React from "react";
 import { useColourContext } from "~/lib/ColourProvider";
-import { ColourElementWrapper } from "~/component/ColourElementWrapper";
+import { ColourElementWrapper } from "~/components/ColourElementWrapper";
 import { signOut } from "next-auth/react";
 
 export const SignOutComponent = () => {
