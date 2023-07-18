@@ -62,10 +62,37 @@ export const ColourPaletteSearch = () => {
   }
 
   //filter colour palettes
-  const filteredPalettes = paletteData && paletteData.palettes && paletteData.palettes.filter((palette) => {
+  const filteredPalettes= paletteData && paletteData.palettes && paletteData.palettes.filter((palette) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
     return palette.themeName.toLowerCase().includes(inputValue.toLowerCase());
   }) || [];
+
+  filteredPalettes.push({
+    themeName: "default",
+    primaryColour: "#E94C78",
+    secondaryColour: "#FFFFFF",
+    accentColour1:"#FD749B",
+    accentColour2: "#D2D2D2",
+    accentColour3: "#FFD0D0",
+  })
+
+  filteredPalettes.push({
+    themeName: "Navy",
+    primaryColour: "#042e58",
+    secondaryColour: "#e8e8e8",
+    accentColour1:"#124676",
+    accentColour2: "#3e597e",
+    accentColour3: "#314a70",
+  })
+
+  filteredPalettes.push({
+    themeName: "Forest",
+    primaryColour: "#2E543C",
+    secondaryColour: "#BEBD8E",
+    accentColour1:"#7D9D74",
+    accentColour2: "#A7A57E",
+    accentColour3: "#C5C4A0",
+  })
 
   return (
     <div className={"px-4"}>
@@ -77,7 +104,6 @@ export const ColourPaletteSearch = () => {
       accentColour3={currentPalette.accentColour3}
       setIsOpen={setOpenModal}
       isOpen={openModal}
-        themeName={currentTheme}
       />
       <div className={"flex mb-4"}>
         <label className={"mr-2 flex items-center"}> <FaSearch /> </label>
@@ -104,11 +130,11 @@ export const ColourPaletteSearch = () => {
             setCurrentTheme(palette.themeName as string);
             setOpenModal(true)
           }}
-            className={`h-14 ${key != filteredPalettes.length - 1 ? "border-b-2 border-menu" : ""} flex justify-between cursor-pointer group overscroll-contain`} key={key}>
+            className={`h-14 ${(key == filteredPalettes.length - 1 && filteredPalettes.length > 5) ? "" : "border-b-2 border-menu"} flex justify-between cursor-pointer group overscroll-contain`} key={key}>
             <div>
             <h2 className={"font-bold pt-2 pl-2"}>{palette.themeName} </h2>
             {/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument */}
-            <h3 className={"pl-3 text-sm -translate-y-1"}>{formatDateToMonthDateYear(palette.uploadDate)}</h3>
+            <h3 className={"pl-3 text-sm -translate-y-1"}>{palette.uploadDate ? formatDateToMonthDateYear(palette.uploadDate) : "Basic theme"}</h3>
             </div>
             {/*colour display*/}
             <div className={"flex"}>

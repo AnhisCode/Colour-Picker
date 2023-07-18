@@ -1,5 +1,5 @@
-import { Dialog, Transition } from '@headlessui/react'
-import React, { Fragment, useState } from 'react'
+import { Dialog, Transition } from "@headlessui/react";
+import React, { Fragment, useState } from "react";
 import { useColourContext } from "~/lib/ColourProvider";
 
 interface ColorPalette {
@@ -12,25 +12,39 @@ interface ColorPalette {
   isOpen: boolean;
 }
 
-export function ApplyPaletteModal({primaryColour, accentColour3, secondaryColour, accentColour2, accentColour1, isOpen, setIsOpen} : ColorPalette) {
+export function ApplyPaletteModal({
+                                    primaryColour,
+                                    accentColour3,
+                                    secondaryColour,
+                                    accentColour2,
+                                    accentColour1,
+                                    isOpen,
+                                    setIsOpen
+                                  }: ColorPalette) {
 
-  const {setPrimaryColour, setSecondaryColour, setAccentColour1, setAccentColour2, setAccentColour3} = useColourContext();
+  const {
+    setPrimaryColour,
+    setSecondaryColour,
+    setAccentColour1,
+    setAccentColour2,
+    setAccentColour3
+  } = useColourContext();
 
   function closeModal() {
-    setIsOpen(false)
+    setIsOpen(false);
   }
 
   function applyChanges() {
-    setIsOpen(false)
-setPrimaryColour(primaryColour);
-setSecondaryColour(secondaryColour);
-setAccentColour1(accentColour1);
-setAccentColour2(accentColour2);
-setAccentColour3(accentColour3);
+    setIsOpen(false);
+    setPrimaryColour(primaryColour);
+    setSecondaryColour(secondaryColour);
+    setAccentColour1(accentColour1);
+    setAccentColour2(accentColour2);
+    setAccentColour3(accentColour3);
   }
 
   function openModal() {
-    setIsOpen(true)
+    setIsOpen(true);
   }
 
   return (
@@ -61,7 +75,8 @@ setAccentColour3(accentColour3);
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-menu p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel
+                  className="w-full max-w-md transform overflow-hidden rounded-2xl bg-menu p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
                     className="text-2xl font-medium leading-6 text-menu-text mb-4"
@@ -70,7 +85,8 @@ setAccentColour3(accentColour3);
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-menu-text">
-                      You are about to apply a color palette to your website. Any unsaved palettes will be <span className={"font-bold"}>lost</span>. Are you sure you want to continue?
+                      You are about to apply a color palette to your website. Any unsaved palettes will be <span
+                      className={"font-bold"}>lost</span>. Are you sure you want to continue?
                     </p>
                   </div>
 
@@ -111,5 +127,5 @@ setAccentColour3(accentColour3);
         </Dialog>
       </Transition>
     </>
-  )
+  );
 }

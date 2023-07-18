@@ -9,6 +9,7 @@ import { ImageCarousel } from "~/components/ImageCarousel";
 import { NavbarHayden } from "~/components/NavBar";
 import { Footer } from "~/components/Footer";
 import { Fade } from "react-awesome-reveal";
+import Image from "next/image";
 
 
 const poppins = localFont({
@@ -110,7 +111,14 @@ export const HaydenPage = () => {
               <div className={"px-20 pt-10 md:pt-0"}>
                 <div className={"w-full grid md:grid-cols-3 grid-cols-1 gap-10"}>
                   <div>
-                    <div className={"aspect-video bg-white shadow-xl rounded-3xl mb-8"} />
+                    <div className={"aspect-video bg-white shadow-xl rounded-3xl mb-8 overflow-hidden"} >
+                      {/*<Image*/}
+                      {/*  src="/img.png"*/}
+                      {/*  alt="google"*/}
+                      {/*  width="2000"*/}
+                      {/*  height="2000"*/}
+                      {/*/>*/}
+                    </div>
                     <ColourElementWrapper type={"accent1"}>
                       <Fade direction={"up"} triggerOnce={true}>
                         <h3 style={{ color: accentColour1 }} className={"text-xl font-bold mb-4"}>Begin Right Away</h3>

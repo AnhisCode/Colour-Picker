@@ -167,7 +167,7 @@ export default function LeftPanel() {
                   }} />
                 </div>
                 <div className={"pl-4"}>
-                  <p>Primary Colour</p>
+                  <p>Primary Colour ({primaryColour})</p>
                   <div className={"flex"}>
                     <div className={`w-16 h-16 mr-4 mb-4 mt-2`} style={{ backgroundColor: primaryColour }}>
                       <ColourElementWrapper type={"primary"}>
@@ -183,7 +183,7 @@ export default function LeftPanel() {
                       className={"pt-4"}
                     />
                   </div>
-                  <p>Secondary Colour</p>
+                  <p>Secondary Colour ({secondaryColour})</p>
                   <div className={"flex"}>
                     <div className={`w-16 h-16 mr-4 mb-4 mt-2`} style={{ backgroundColor: secondaryColour }}>
                       <ColourElementWrapper type={"secondary"}>
@@ -200,7 +200,7 @@ export default function LeftPanel() {
                     />
                   </div>
 
-                  <p>Accent Colour 1</p>
+                  <p>Accent Colour 1 ({accentColour1})</p>
                   <div className={"flex"}>
                     <div className={`w-16 h-16 mr-4 mb-4 mt-2`} style={{ backgroundColor: accentColour1 }}>
                       <ColourElementWrapper type={"accent1"}>
@@ -217,7 +217,7 @@ export default function LeftPanel() {
                     />
                   </div>
 
-                  <p>Accent Colour 2</p>
+                  <p>Accent Colour 2 ({accentColour2})</p>
                   <div className={"flex"}>
                     <div className={`w-16 h-16 mr-4 mb-4 mt-2`} style={{ backgroundColor: accentColour2 }}>
                       <ColourElementWrapper type={"accent2"}>
@@ -233,7 +233,7 @@ export default function LeftPanel() {
                       className={"pt-4"}
                     />
                   </div>
-                  <p>Accent Colour 3</p>
+                  <p>Accent Colour 3 ({accentColour3})</p>
                   <div className={"flex"}>
                     <div className={`w-16 h-16 mr-4 mb-4 mt-2`} style={{ backgroundColor: accentColour3 }}>
                       <ColourElementWrapper type={"accent3"}>
