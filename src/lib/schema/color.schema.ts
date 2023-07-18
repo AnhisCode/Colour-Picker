@@ -7,4 +7,5 @@ export const addColourPaletteSchema = z.object({
   accentColour1: z.string(),
   accentColour2: z.string(),
   accentColour3: z.string(),
+  override: z.boolean().optional(),
 });

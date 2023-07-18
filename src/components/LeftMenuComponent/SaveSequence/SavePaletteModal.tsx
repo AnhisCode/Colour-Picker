@@ -6,6 +6,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { ToastContainer, toast } from 'react-toastify';
 import { api } from "~/utils/api";
 import 'react-toastify/dist/ReactToastify.css';
+import { SaveOverridePallateModal } from "~/components/LeftMenuComponent/SaveSequence/SaveOverridePallateModal";
 interface ColorPalette {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isOpen: boolean;
@@ -16,14 +17,15 @@ interface paletteData{
   theme: string;
 }
 
-export function SavePaletteModal({isOpen, setIsOpen, currentTheme} : ColorPalette) {
+export function SavePaletteModal({isOpen, setIsOpen} : ColorPalette) {
 
   const {primaryColour, secondaryColour, accentColour1, accentColour2, accentColour3} = useColourContext();
   const { register, handleSubmit } = useForm<paletteData>();
-  const [savedTheme, setSavedTheme] = useState("");
-  const [savedSuccess, setSavedSuccess] = useState(false);
+  const [overrideModalOpen, setOverrideModalOpen] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState("");
   const [saveLoading, setSaveLoading] = useState(false);
   const uploadColourPalette = api.colour.addColourPalette.useMutation();
+  const themeExist = api.colour.doesThemeExist.useMutation();
 
   function closeModal() {
     setIsOpen(false)
@@ -31,74 +33,80 @@ export function SavePaletteModal({isOpen, setIsOpen, currentTheme} : ColorPalett
 
   const handleSave: SubmitHandler<paletteData> = async (data) => {
     setSaveLoading(true);
-    const res = await uploadColourPalette.mutateAsync({
-      themeName: data.theme,
-      primaryColour: primaryColour,
-      secondaryColour: secondaryColour,
-      accentColour1: accentColour1,
-      accentColour2: accentColour2,
-      accentColour3: accentColour3
-    });
-    if (res.status == "success") {
-      setSavedSuccess(true);
-      closeModal();
+    setCurrentTheme(data.theme)
 
-      const toastBody = () => (
-        <div>
-          <h1 className={"font-bold text-menu-text"}>{`Successfully saved palette:`}</h1>
-          <div className={"flex mx-10 mb-2 mt-4 rounded-2xl overflow-hidden border-[#30303d] border-[2px]"}>
-            <div className={"w-[20%] duration-300 ease-out h-20"} style={{
-              backgroundColor: primaryColour
-            }} />
-            <div className={"w-[20%] duration-300 ease-out h-20"} style={{
-              backgroundColor: secondaryColour
-            }} />
-            <div className={"w-[20%] duration-300 ease-out h-20"} style={{
-              backgroundColor: accentColour1
-            }} />
-            <div className={"w-[20%] duration-300 ease-out h-20"} style={{
-              backgroundColor: accentColour2
-            }} />
-            <div className={"w-[20%] duration-300 ease-out h-20"} style={{
-              backgroundColor: accentColour3
-            }} />
-          </div>
-          <div className={"flex justify-center"}>
-            <h1 className={"font-bold text-menu-text"}>{`${data.theme}`}</h1>
-          </div>
-        </div>
-      )
+    const {themeExists} = await themeExist.mutateAsync({themeName: data.theme});
 
-      toast.success(toastBody, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+    if (themeExists){
+      setOverrideModalOpen(true);
     } else {
-      setSavedSuccess(false);
-      toast.error("Unable to save, please try again later", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
+      const res = await uploadColourPalette.mutateAsync({
+        themeName: data.theme,
+        primaryColour: primaryColour,
+        secondaryColour: secondaryColour,
+        accentColour1: accentColour1,
+        accentColour2: accentColour2,
+        accentColour3: accentColour3,
       });
+      if (res.status == "success") {
+        closeModal();
+
+        const toastBody = () => (
+          <div>
+            <h1 className={"font-bold text-menu-text"}>Successfully saved palette:</h1>
+            <div className={"flex mx-10 mb-2 mt-4 rounded-2xl overflow-hidden border-[#30303d] border-[2px]"}>
+              <div className={"w-[20%] duration-300 ease-out h-20"} style={{
+                backgroundColor: primaryColour
+              }} />
+              <div className={"w-[20%] duration-300 ease-out h-20"} style={{
+                backgroundColor: secondaryColour
+              }} />
+              <div className={"w-[20%] duration-300 ease-out h-20"} style={{
+                backgroundColor: accentColour1
+              }} />
+              <div className={"w-[20%] duration-300 ease-out h-20"} style={{
+                backgroundColor: accentColour2
+              }} />
+              <div className={"w-[20%] duration-300 ease-out h-20"} style={{
+                backgroundColor: accentColour3
+              }} />
+            </div>
+            <div className={"flex justify-center"}>
+              <h1 className={"font-bold text-menu-text"}>{`${data.theme}`}</h1>
+            </div>
+          </div>
+        )
+
+        toast.success(toastBody, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      } else {
+        toast.error(`Unable to save, please try again later. Error: ${res.status}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
     }
     setSaveLoading(false);
-    setSavedTheme(currentTheme);
   };
 
   return (
     <>
-      <ToastContainer toastClassName={""} bodyClassName={"font-bold text-menu-text"}/>
+      <SaveOverridePallateModal setIsOpen={setOverrideModalOpen} isOpen={overrideModalOpen} themeName={currentTheme}/>
+      <ToastContainer toastClassName={""} bodyClassName={"font-bold text-menu-text"} />
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-[200]" onClose={closeModal}>
           <Transition.Child
@@ -163,7 +171,7 @@ export function SavePaletteModal({isOpen, setIsOpen, currentTheme} : ColorPalett
                         <input placeholder="theme" {...register("theme")} required={true}
                                className={"w-full bg-[#30303d] pl-2 rounded-md focus:outline-none"}
                                maxLength={20}
-                        defaultValue={currentTheme}/>
+                        />
                       </div>
                     </div>
                     <div className={"flex justify-center"}>

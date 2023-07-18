@@ -5,6 +5,7 @@ import { FaRobot, FaSearch } from "react-icons/fa";
 import { useDebounce, useDebouncedCallback } from "use-debounce";
 import { HiRefresh } from "react-icons/hi";
 import { ApplyPaletteModal } from "~/components/LeftMenuComponent/ApplyPaletteModal";
+import { useColourContext } from "~/lib/ColourProvider";
 
 export interface colorPalette {
   primaryColour: string;
@@ -27,6 +28,7 @@ export const ColourPaletteSearch = () => {
     accentColour2: "",
     accentColour3: ""
   });
+  const [currentTheme, setCurrentTheme] = useState<string>("default");
 
   const [inputValue, setInputValue] = useState<string>("");
 
@@ -75,6 +77,7 @@ export const ColourPaletteSearch = () => {
       accentColour3={currentPalette.accentColour3}
       setIsOpen={setOpenModal}
       isOpen={openModal}
+        themeName={currentTheme}
       />
       <div className={"flex mb-4"}>
         <label className={"mr-2 flex items-center"}> <FaSearch /> </label>
@@ -96,11 +99,11 @@ export const ColourPaletteSearch = () => {
               secondaryColour: palette.secondaryColour as string,
               accentColour1: palette.accentColour1 as string,
               accentColour2: palette.accentColour2 as string,
-              accentColour3: palette.accentColour3 as string
+              accentColour3: palette.accentColour3 as string,
             })
+            setCurrentTheme(palette.themeName as string);
             setOpenModal(true)
-          }
-          }
+          }}
             className={`h-14 ${key != filteredPalettes.length - 1 ? "border-b-2 border-menu" : ""} flex justify-between cursor-pointer group overscroll-contain`} key={key}>
             <div>
             <h2 className={"font-bold pt-2 pl-2"}>{palette.themeName} </h2>

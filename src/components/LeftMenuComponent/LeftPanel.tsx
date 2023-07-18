@@ -11,7 +11,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { BiSolidErrorCircle } from "react-icons/bi";
 import { ColourPaletteSearch } from "~/components/LeftMenuComponent/ColourPaletteSearch";
-import { SavePalette } from "~/components/LeftMenuComponent/SavePalette";
+import { SavePalette } from "~/components/LeftMenuComponent/SaveSequence/SavePalette";
 
 interface colourData {
   theme: string;
