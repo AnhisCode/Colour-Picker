@@ -166,6 +166,11 @@ export default function LeftPanel() {
                     backgroundColor: accentColour3
                   }} />
                 </div>
+
+
+
+                {/*colour picker*/}
+
                 <div className={"pl-4"}>
                   <p>Primary Colour ({primaryColour})</p>
                   <div className={"flex"}>
@@ -250,6 +255,9 @@ export default function LeftPanel() {
                     />
                   </div>
                 </div>
+
+
+
 
                 {/*save*/}
                 <section>

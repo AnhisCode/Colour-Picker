@@ -18,9 +18,7 @@ export interface colorPalette {
 export const ColourPaletteSearch = () => {
 
   const[openModal, setOpenModal] = useState<boolean>(false);
-  const { data: userData } = useSession();
   const { data: paletteData, refetch  } = api.colour.getColourPalette.useQuery();
-  const [currentModal, setCurrentModal] = useState(<> </>);
   const [currentPalette, setCurrentPalette] = useState<colorPalette>({
     primaryColour: "",
     secondaryColour: "",
@@ -61,38 +59,48 @@ export const ColourPaletteSearch = () => {
     return `${month || ""} ${day} ${year}`;
   }
 
-  //filter colour palettes
-  const filteredPalettes= paletteData && paletteData.palettes && paletteData.palettes.filter((palette) => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-    return palette.themeName.toLowerCase().includes(inputValue.toLowerCase());
-  }) || [];
+  const palettes= paletteData && paletteData.palettes && paletteData.palettes || [];
 
-  filteredPalettes.push({
+  const def = {
     themeName: "default",
     primaryColour: "#E94C78",
     secondaryColour: "#FFFFFF",
     accentColour1:"#FD749B",
     accentColour2: "#D2D2D2",
     accentColour3: "#FFD0D0",
-  })
+    uploadDate: null,
+  }
 
-  filteredPalettes.push({
+  const navy = {
     themeName: "Navy",
     primaryColour: "#042e58",
     secondaryColour: "#e8e8e8",
     accentColour1:"#124676",
     accentColour2: "#3e597e",
     accentColour3: "#314a70",
-  })
+    uploadDate: null,
 
-  filteredPalettes.push({
+  }
+
+  const forest = {
     themeName: "Forest",
     primaryColour: "#2E543C",
     secondaryColour: "#BEBD8E",
     accentColour1:"#7D9D74",
     accentColour2: "#A7A57E",
     accentColour3: "#C5C4A0",
-  })
+    uploadDate: null,
+
+  }
+
+  const paletteWithBasic = [...palettes, def, navy, forest]
+
+
+  //filter colour palettes
+  const filteredPalettes= paletteWithBasic.filter((palette) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
+    return palette.themeName.toLowerCase().includes(inputValue.toLowerCase());
+  }) || [];
 
   return (
     <div className={"px-4"}>
