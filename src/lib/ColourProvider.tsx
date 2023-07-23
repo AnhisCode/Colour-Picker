@@ -2,11 +2,11 @@ import React, { createContext, type ReactNode, useContext, useState } from "reac
 
 // Define the shape of your context
 interface ColourContextType {
-  setPrimaryColour: (value: string) => void;
-  setSecondaryColour: (value: string) => void;
-  setAccentColour1: (value: string) => void;
-  setAccentColour2: (value: string) => void;
-  setAccentColour3: (value: string) => void;
+  setPrimaryColour: (value: string, save?: boolean) => void;
+  setSecondaryColour: (value: string, save?: boolean) => void;
+  setAccentColour1: (value: string, save?: boolean) => void;
+  setAccentColour2: (value: string, save?: boolean) => void;
+  setAccentColour3: (value: string, save?: boolean) => void;
   primaryColour: string;
   secondaryColour: string;
   accentColour1: string;
@@ -53,20 +53,20 @@ const [accentColour3History, setAccentColour3History] = useState(["#FFD0D0".toLo
   const [openPanel, setOpenPanel] = useState(false);
 
   // handles changing state for colours, as well as keep history of last 6 colours
-  const setPrimaryColour = (colour: string) => {
-    changeColourHelper(colour, primaryColourHistory, setPrimaryColourHistory, setPColour);
+  const setPrimaryColour = (colour: string, save=true) => {
+    changeColourHelper(colour, primaryColourHistory, setPrimaryColourHistory, setPColour, save);
   }
-  const setSecondaryColour = (colour: string) => {
-    changeColourHelper(colour, secondaryColourHistory, setSecondaryColourHistory, setSColour);
+  const setSecondaryColour = (colour: string, save=true) => {
+    changeColourHelper(colour, secondaryColourHistory, setSecondaryColourHistory, setSColour, save);
   }
-  const setAccentColour1 = (colour: string) => {
-    changeColourHelper(colour, accentColour1History, setAccentColour1History, setAColour1);
+  const setAccentColour1 = (colour: string, save=true) => {
+    changeColourHelper(colour, accentColour1History, setAccentColour1History, setAColour1, save);
   }
-  const setAccentColour2 = (colour: string) => {
-    changeColourHelper(colour, accentColour2History, setAccentColour2History, setAColour2);
+  const setAccentColour2 = (colour: string, save=true) => {
+    changeColourHelper(colour, accentColour2History, setAccentColour2History, setAColour2, save);
   }
-  const setAccentColour3 = (colour: string) => {
-    changeColourHelper(colour, accentColour3History, setAccentColour3History, setAColour3);
+  const setAccentColour3 = (colour: string, save=true) => {
+    changeColourHelper(colour, accentColour3History, setAccentColour3History, setAColour3, save);
   }
 
   const [editMode, setEditMode] = useState(false);
@@ -106,16 +106,19 @@ const [accentColour3History, setAccentColour3History] = useState(["#FFD0D0".toLo
 const changeColourHelper = (colour: string,
                             history: string[],
                             setHistory: React.Dispatch<React.SetStateAction<string[]>>,
-                            setState: React.Dispatch<React.SetStateAction<string>>) => {
+                            setState: React.Dispatch<React.SetStateAction<string>>,
+                            save: boolean) => {
   colour = colour.toLowerCase();
+  if (save){
   if (!history.includes(colour)) {
     {
-      if (history.length > 7) {
-        setHistory([colour, ...history.slice(0, 7)]);
+      if (history.length > 20) {
+        setHistory([colour, ...history.slice(0, 20)]);
       } else {
         setHistory([colour, ...history]);
       }
     }
+  }
   }
   setState(colour);
 };

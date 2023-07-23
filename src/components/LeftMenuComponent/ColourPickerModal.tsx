@@ -66,11 +66,14 @@ export const ColourPickerModal= ({setIsOpen, isOpen, colour, tempColour} : Props
       break;
   }
 
-  const closeModal = (save:boolean) => {
-    if (!save) {
-      changeColorFunction(tempColour);
-    }
+  const closeModal = () => {
     setIsOpen(false)
+    changeColorFunction(tempColour, false);
+  }
+
+  const closeAndSaveModal = () => {
+    setIsOpen(false)
+    changeColorFunction(colorToChange, true);
   }
 
   return (
@@ -116,7 +119,7 @@ export const ColourPickerModal= ({setIsOpen, isOpen, colour, tempColour} : Props
                       <Colorful
                         color={colorToChange}
                         onChange={(color) => {
-                          changeColorFunction(color.hexa);
+                          changeColorFunction(color.hexa, false);
                         }}
                         className={"scale-[120%] m-4"}
                         disableAlpha={true}
@@ -130,7 +133,7 @@ export const ColourPickerModal= ({setIsOpen, isOpen, colour, tempColour} : Props
                       hsva={hexToHsva(colorToChange)}
                       onChange={(newShade) => {
                         const hsvaColor = hexToHsva(colorToChange);
-                        changeColorFunction(hsvaToHex({h: hsvaColor.h, s: hsvaColor.s, v: newShade.v, a: hsvaColor.a}));
+                        changeColorFunction(hsvaToHex({h: hsvaColor.h, s: hsvaColor.s, v: newShade.v, a: hsvaColor.a}), false);
                       }}
                     />
                     <Slider
@@ -138,7 +141,7 @@ export const ColourPickerModal= ({setIsOpen, isOpen, colour, tempColour} : Props
                       color={hexToHsva(colorToChange)}
                       onChange={(color) => {
                         const hsvaColor = hexToHsva(colorToChange);
-                        changeColorFunction(hsvaToHex({h: hsvaColor.h, s: hsvaColor.s, v: color.hsva.v, a: hsvaColor.a}));
+                        changeColorFunction(hsvaToHex({h: hsvaColor.h, s: hsvaColor.s, v: color.hsva.v, a: hsvaColor.a}), false);
                       }}
                     />
                     </div>
@@ -151,7 +154,7 @@ export const ColourPickerModal= ({setIsOpen, isOpen, colour, tempColour} : Props
                           aProps={false}
                           onChange={(color) => {
                             console.log(color.hex);
-                            changeColorFunction(color.hex);
+                            changeColorFunction(color.hex, false);
                           }}
                         />
                       </div>
@@ -163,21 +166,21 @@ export const ColourPickerModal= ({setIsOpen, isOpen, colour, tempColour} : Props
                       colors={colorHistory}
                       color={colorToChange}
                       onChange={(color) => {
-                        changeColorFunction(hsvaToHex(color));
+                        changeColorFunction(hsvaToHex(color), false);
                       }}
                     />
                   </div>
 
                   </div>
                   <button onClick={() => {
-                    closeModal(false)
+                    closeModal();
                   }} type={"button"}
                           className={"text-menu-text bg-transparent cursor-pointer font-bold " +
                             "border-menu-text border-2 hover:text-menu hover:bg-menu-text rounded-md px-4 mr-4"}>
                     Cancel
                   </button>
                   <button onClick={() => {
-                    closeModal(true);
+                    closeAndSaveModal()
                   }} type={"button"}
                           className={"text-menu-text bg-transparent cursor-pointer font-bold " +
                             "border-menu-text border-2 hover:text-menu hover:bg-menu-text rounded-md px-4"}>
