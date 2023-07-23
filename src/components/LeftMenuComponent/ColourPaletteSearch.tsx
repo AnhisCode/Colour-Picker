@@ -7,6 +7,7 @@ import { HiRefresh } from "react-icons/hi";
 import { ApplyPaletteModal } from "~/components/LeftMenuComponent/ApplyPaletteModal";
 import { useColourContext } from "~/lib/ColourProvider";
 import { BsFillTrashFill } from "react-icons/bs";
+import { toast } from "react-toastify";
 
 export interface colorPalette {
   primaryColour: string;
@@ -22,6 +23,7 @@ export const ColourPaletteSearch = () => {
   const { data: userData } = useSession();
   const [deleteMode, setDeleteMode] = useState<boolean>(false);
   const deleteTheme = api.colour.deleteTheme.useMutation();
+  const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
 
   const { data: paletteData, refetch } = api.colour.getColourPalette.useQuery();
   const [currentPalette, setCurrentPalette] = useState<colorPalette>({
@@ -101,8 +103,33 @@ export const ColourPaletteSearch = () => {
   const paletteWithBasic = [...palettes, def, navy, forest];
 
   const handleDeleteTheme = async (themeName: string) => {
-    await deleteTheme.mutateAsync({ themeName: themeName });
+    setDeleteLoading(true);
+    const res = await deleteTheme.mutateAsync({ themeName: themeName });
     await refetch();
+    if (res.status == "success") {
+      toast.success(`Successfully deleted theme: ${themeName}`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark"
+      });
+    } else {
+      toast.error(`Failed to delete theme: ${themeName}`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark"
+      });
+    }
+    setDeleteLoading(false);
   }
 
   //filter colour palettes

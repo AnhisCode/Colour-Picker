@@ -31,7 +31,7 @@ const [tempColour, setTempColour] = React.useState("#FFFFFF");
 
       <ColourPickerModal setIsOpen={setIsOpen} isOpen={isOpen} colour={color} tempColour={tempColour}/>
 
-      <p>Primary Color ({primaryColour})</p>
+      <p >Primary Color ({primaryColour})</p>
       <div className={"flex justify-center items-center w-full h-16 my-2 rounded cursor-pointer group"}
            style={{backgroundColor: primaryColour}}>
         <div className={"flex justify-center items-center px-8 py-1 bg-opacity-30 bg-menu rounded group-hover:w-full " +
@@ -45,7 +45,7 @@ const [tempColour, setTempColour] = React.useState("#FFFFFF");
         </div>
       </div>
 
-      <p>Secondary Color ({secondaryColour})</p>
+      <p className={"mt-4"}>Secondary Color ({secondaryColour})</p>
       <div className={"flex justify-center items-center w-full h-16 my-2 rounded cursor-pointer group"}
            style={{backgroundColor: secondaryColour}}>
         <div className={"flex justify-center items-center px-8 py-1 bg-opacity-30 bg-menu rounded group-hover:w-full " +
@@ -59,7 +59,7 @@ const [tempColour, setTempColour] = React.useState("#FFFFFF");
         </div>
       </div>
 
-      <p>Accent Color 1 ({accentColour1})</p>
+      <p className={"mt-4"}>Accent Color 1 ({accentColour1})</p>
       <div className={"flex justify-center items-center w-full h-16 my-2 rounded cursor-pointer group"}
             style={{backgroundColor: accentColour1}}>
         <div className={"flex justify-center items-center px-8 py-1 bg-opacity-30 bg-menu rounded group-hover:w-full " +
@@ -73,7 +73,7 @@ const [tempColour, setTempColour] = React.useState("#FFFFFF");
         </div>
       </div>
 
-      <p>Accent Color 2 ({accentColour2})</p>
+      <p className={"mt-4"}>Accent Color 2 ({accentColour2})</p>
       <div className={"flex justify-center items-center w-full h-16 my-2 rounded cursor-pointer group"}
             style={{backgroundColor: accentColour2}}>
         <div className={"flex justify-center items-center px-8 py-1 bg-opacity-30 bg-menu rounded group-hover:w-full " +
@@ -87,7 +87,7 @@ const [tempColour, setTempColour] = React.useState("#FFFFFF");
         </div>
       </div>
 
-      <p>Accent Color 3 ({accentColour3})</p>
+      <p className={"mt-4"}>Accent Color 3 ({accentColour3})</p>
       <div className={"flex justify-center items-center w-full h-16 my-2 rounded cursor-pointer group"}
             style={{backgroundColor: accentColour3}}>
         <div className={"flex justify-center items-center px-8 py-1 bg-opacity-30 bg-menu rounded group-hover:w-full " +

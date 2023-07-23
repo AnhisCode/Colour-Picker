@@ -172,17 +172,15 @@ export default function LeftPanel() {
                 {/*colour picker*/}
                 <ColourPicker/>
 
-
-
                 {/*save*/}
                 <section>
-                  <div className={"text-center text-2xl mt-4"}>Save?</div>
+                  <div className={"text-center text-2xl font-bold mt-4"}>Save?</div>
                   <SavePalette currentTheme={currentTheme}/>
                 </section>
 
                 {/*search*/}
                 <section className={""}>
-                  <div className={"text-center text-2xl mt-8 mb-4"}>Saved Presets</div>
+                  <div className={"text-center text-2xl mt-8 mb-4 font-bold"}>Saved Presets</div>
                   <ColourPaletteSearch/>
                 </section>
               </div>
