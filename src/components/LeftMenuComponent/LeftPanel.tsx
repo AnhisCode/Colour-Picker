@@ -31,7 +31,6 @@ export default function LeftPanel() {
   const [loading, setLoading] = useState(false);
   const [currentTheme, setCurrentTheme] = useState("default");
 
-  const { data: userData } = useSession();
   const {
     setPrimaryColour,
     setSecondaryColour,

@@ -7,7 +7,19 @@ import { hexToHsva, hsvaToHex } from "@uiw/color-convert";
 import Slider from "@uiw/react-color-slider";
 import EditableInputRGBA from "@uiw/react-color-editable-input-rgba";
 import Swatch from "@uiw/react-color-swatch";
+import { AiOutlineInfoCircle } from "react-icons/ai";
+import { Tooltip } from "@mui/material";
+import { styled } from '@mui/material/styles';
+import { type TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
+import { Button } from "@mui/base";
 
+const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))({
+  [`& .${tooltipClasses.tooltip}`]: {
+    maxWidth: 200,
+  },
+});
 
 interface Props {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -66,6 +78,10 @@ export const ColourPickerModal= ({setIsOpen, isOpen, colour, tempColour} : Props
       break;
   }
 
+  const longText = `
+Secondary colour determines the colour that will be used with the primary colour, it is recommended
+that it is either a lighter shade of the primary colour, or a gradient of white or black depending on the primary colour.`;
+
   const closeModal = () => {
     setIsOpen(false)
     changeColorFunction(tempColour, false);
@@ -74,6 +90,11 @@ export const ColourPickerModal= ({setIsOpen, isOpen, colour, tempColour} : Props
   const closeAndSaveModal = () => {
     setIsOpen(false)
     changeColorFunction(colorToChange, true);
+  }
+
+  const randomiseColor = () => {
+    const randomColor = Math.floor(Math.random()*16777215).toString(16);
+    changeColorFunction(`#${randomColor}`, false);
   }
 
   return (
@@ -105,11 +126,25 @@ export const ColourPickerModal= ({setIsOpen, isOpen, colour, tempColour} : Props
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-menu p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
-                    as="h3"
-                    className="text-2xl font-medium leading-6 text-menu-text"
+                    as="div"
+                    className="text-2xl font-medium leading-6 text-menu-text flex justify-between"
                   >
-                    {/* eslint-disable-next-line @typescript-eslint/restrict-template-expressions */}
-                    {colour[0] == "A" ? `Accent Color ${colour[colour.length - 1]}` : `${colour} Color`}
+                    <div>
+                      {/* eslint-disable-next-line @typescript-eslint/restrict-template-expressions */}
+                      {colour[0] == "A" ? `Accent Color ${colour[colour.length - 1]}` : `${colour} Color`}
+                    {colour == "Secondary" &&
+                      <CustomWidthTooltip title={longText}>
+                        <Button className={"pl-2"}> <AiOutlineInfoCircle/></Button>
+                      </CustomWidthTooltip>
+                    }
+                    </div>
+                    <button onClick={() => {
+                      randomiseColor();
+                    }} type={"button"}
+                            className={"text-menu-text text-base bg-transparent cursor-pointer font-bold " +
+                              "border-menu-text border-2 hover:text-menu hover:bg-menu-text rounded-md px-4 mr-4"}>
+                      Randomise
+                    </button>
                   </Dialog.Title>
                   <div className="mt-2 mb-2 p-2">
 

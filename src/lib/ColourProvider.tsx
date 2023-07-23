@@ -27,18 +27,17 @@ interface ColourContextType {
 const MyContext = createContext<ColourContextType | undefined>(undefined);
 
 
-
 // Custom hook to access the context
 export const useColourContext = () => {
   const context = useContext(MyContext);
   if (!context) {
-    throw new Error('useMyContext must be used within a MyContextProvider');
+    throw new Error("useMyContext must be used within a MyContextProvider");
   }
   return context;
 };
 
 
-export const MyColourProvider: React.FC = ({ children }: {children?: ReactNode[]}) => {
+export const MyColourProvider: React.FC = ({ children }: { children?: ReactNode[] }) => {
 
   const [primaryColour, setPColour] = useState("#E94C78");
   const [secondaryColour, setSColour] = useState("#FFFFFF");
@@ -46,28 +45,28 @@ export const MyColourProvider: React.FC = ({ children }: {children?: ReactNode[]
   const [accentColour2, setAColour2] = useState("#D2D2D2");
   const [accentColour3, setAColour3] = useState("#FFD0D0");
   const [primaryColourHistory, setPrimaryColourHistory] = useState(["#E94C78".toLowerCase()]);
-const [secondaryColourHistory, setSecondaryColourHistory] = useState(["#FFFFFF".toLowerCase()]);
-const [accentColour1History, setAccentColour1History] = useState(["#FD749B".toLowerCase()]);
-const [accentColour2History, setAccentColour2History] = useState(["#D2D2D2".toLowerCase()]);
-const [accentColour3History, setAccentColour3History] = useState(["#FFD0D0".toLowerCase()]);
+  const [secondaryColourHistory, setSecondaryColourHistory] = useState(["#FFFFFF".toLowerCase()]);
+  const [accentColour1History, setAccentColour1History] = useState(["#FD749B".toLowerCase()]);
+  const [accentColour2History, setAccentColour2History] = useState(["#D2D2D2".toLowerCase()]);
+  const [accentColour3History, setAccentColour3History] = useState(["#FFD0D0".toLowerCase()]);
   const [openPanel, setOpenPanel] = useState(false);
 
   // handles changing state for colours, as well as keep history of last 6 colours
-  const setPrimaryColour = (colour: string, save=true) => {
+  const setPrimaryColour = (colour: string, save = true) => {
     changeColourHelper(colour, primaryColourHistory, setPrimaryColourHistory, setPColour, save);
-  }
-  const setSecondaryColour = (colour: string, save=true) => {
+  };
+  const setSecondaryColour = (colour: string, save = true) => {
     changeColourHelper(colour, secondaryColourHistory, setSecondaryColourHistory, setSColour, save);
-  }
-  const setAccentColour1 = (colour: string, save=true) => {
+  };
+  const setAccentColour1 = (colour: string, save = true) => {
     changeColourHelper(colour, accentColour1History, setAccentColour1History, setAColour1, save);
-  }
-  const setAccentColour2 = (colour: string, save=true) => {
+  };
+  const setAccentColour2 = (colour: string, save = true) => {
     changeColourHelper(colour, accentColour2History, setAccentColour2History, setAColour2, save);
-  }
-  const setAccentColour3 = (colour: string, save=true) => {
+  };
+  const setAccentColour3 = (colour: string, save = true) => {
     changeColourHelper(colour, accentColour3History, setAccentColour3History, setAColour3, save);
-  }
+  };
 
   const [editMode, setEditMode] = useState(false);
 
@@ -109,16 +108,18 @@ const changeColourHelper = (colour: string,
                             setState: React.Dispatch<React.SetStateAction<string>>,
                             save: boolean) => {
   colour = colour.toLowerCase();
-  if (save){
-  if (!history.includes(colour)) {
-    {
-      if (history.length > 20) {
-        setHistory([colour, ...history.slice(0, 20)]);
-      } else {
-        setHistory([colour, ...history]);
+  if (save) {
+    if (!history.includes(colour)) {
+      {
+        if (history.length > 20) {
+          setHistory([colour, ...history.slice(0, 20)]);
+        } else {
+          setHistory([colour, ...history]);
+        }
       }
+    } else {
+      setHistory([colour, ...history.filter((c) => c !== colour)]);
     }
-  }
   }
   setState(colour);
 };

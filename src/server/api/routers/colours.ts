@@ -98,4 +98,24 @@ export const colourRouter = createTRPCRouter({
       }
     }
   }),
+  deleteTheme: protectedProcedure.input(z.object({
+    themeName: z.string()
+  })).mutation(async ({ input, ctx }) => {
+    try {
+      const client = await clientPromise;
+      const db = client.db('development');
+      const colours = db.collection('palette');
+
+      await colours.deleteMany({ userEmail: ctx.session.user.email, themeName: input.themeName });
+
+      return {
+        status: `success`,
+      }
+    } catch (error) {
+      console.log(error);
+      return {
+        status: `error`,
+      }
+    }
+  }),
 });

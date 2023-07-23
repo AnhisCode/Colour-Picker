@@ -369,7 +369,7 @@ export const HaydenPage = () => {
             <div className={"w-full relative flex justify-center items-center py-20"} style={{
               backgroundColor: secondaryColour
             }}>
-              <div className={`text-center  z-[2] ${bright ? "text-black" : "text-white"}`}>
+              <div className={`text-center  z-[30] ${bright ? "text-black" : "text-white"}`}>
                 <div className={"flex justify-center translate-y-0 md:translate-y-[-100%]"}>
                   <ColourElementWrapper type={"accent1"}>
                     <h2 className={"text-2xl font-bold"} style={{ color: accentColour1 }}>Experience the magic</h2>
@@ -388,7 +388,7 @@ export const HaydenPage = () => {
                       onClick={() => {
                         setOpenPanel(true);
                       }}>
-                      <button className={"text-sm font-bold z-[11]"}>
+                      <button className={"text-sm font-bold z-[30]"}>
                         Get Started
                       </button>
                     </div>
@@ -396,7 +396,7 @@ export const HaydenPage = () => {
                 </Fade>
               </div>
             </div>
-            <div className={"absolute rotate-[-179deg] scale-x-[-150%] z-10 translate-x-[10px] -translate-y-[75px]"}>
+            <div className={"absolute z-[29] rotate-[-179deg] scale-x-[-150%] translate-x-[10px] -translate-y-[75px]"}>
               <SectionBleed1 colour={secondaryColour} />
             </div>
           </ColourElementWrapper>
