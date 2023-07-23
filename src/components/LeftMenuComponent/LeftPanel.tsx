@@ -12,6 +12,7 @@ import Link from "next/link";
 import { BiSolidErrorCircle } from "react-icons/bi";
 import { ColourPaletteSearch } from "~/components/LeftMenuComponent/ColourPaletteSearch";
 import { SavePalette } from "~/components/LeftMenuComponent/SaveSequence/SavePalette";
+import { ColourPicker } from "~/components/LeftMenuComponent/ColourPicker";
 
 interface colourData {
   theme: string;
@@ -170,92 +171,7 @@ export default function LeftPanel() {
 
 
                 {/*colour picker*/}
-
-                <div className={"pl-4"}>
-                  <p>Primary Colour ({primaryColour})</p>
-                  <div className={"flex"}>
-                    <div className={`w-16 h-16 mr-4 mb-4 mt-2`} style={{ backgroundColor: primaryColour }}>
-                      <ColourElementWrapper type={"primary"}>
-                        <div className={"h-16"} />
-                      </ColourElementWrapper>
-                    </div>
-                    <Circle
-                      colors={primaryColourHistory}
-                      color={primaryColour}
-                      onChange={(color) => {
-                        setPrimaryColour(color.hex);
-                      }}
-                      className={"pt-4"}
-                    />
-                  </div>
-                  <p>Secondary Colour ({secondaryColour})</p>
-                  <div className={"flex"}>
-                    <div className={`w-16 h-16 mr-4 mb-4 mt-2`} style={{ backgroundColor: secondaryColour }}>
-                      <ColourElementWrapper type={"secondary"}>
-                        <div className={"h-16"} />
-                      </ColourElementWrapper>
-                    </div>
-                    <Circle
-                      colors={secondaryColourHistory}
-                      color={secondaryColour}
-                      onChange={(color) => {
-                        setSecondaryColour(color.hex);
-                      }}
-                      className={"pt-4"}
-                    />
-                  </div>
-
-                  <p>Accent Colour 1 ({accentColour1})</p>
-                  <div className={"flex"}>
-                    <div className={`w-16 h-16 mr-4 mb-4 mt-2`} style={{ backgroundColor: accentColour1 }}>
-                      <ColourElementWrapper type={"accent1"}>
-                        <div className={"h-16"} />
-                      </ColourElementWrapper>
-                    </div>
-                    <Circle
-                      colors={accentColour1History}
-                      color={accentColour1}
-                      onChange={(color) => {
-                        setAccentColour1(color.hex);
-                      }}
-                      className={"pt-4"}
-                    />
-                  </div>
-
-                  <p>Accent Colour 2 ({accentColour2})</p>
-                  <div className={"flex"}>
-                    <div className={`w-16 h-16 mr-4 mb-4 mt-2`} style={{ backgroundColor: accentColour2 }}>
-                      <ColourElementWrapper type={"accent2"}>
-                        <div className={"h-16"} />
-                      </ColourElementWrapper>
-                    </div>
-                    <Circle
-                      colors={accentColour2History}
-                      color={accentColour2}
-                      onChange={(color) => {
-                        setAccentColour2(color.hex);
-                      }}
-                      className={"pt-4"}
-                    />
-                  </div>
-                  <p>Accent Colour 3 ({accentColour3})</p>
-                  <div className={"flex"}>
-                    <div className={`w-16 h-16 mr-4 mb-4 mt-2`} style={{ backgroundColor: accentColour3 }}>
-                      <ColourElementWrapper type={"accent3"}>
-                        <div className={"h-16"} />
-                      </ColourElementWrapper>
-                    </div>
-                    <Circle
-                      colors={accentColour3History}
-                      color={accentColour3}
-                      onChange={(color) => {
-                        setAccentColour3(color.hex);
-                      }}
-                      className={"pt-4"}
-                    />
-                  </div>
-                </div>
-
+                <ColourPicker/>
 
 
 
