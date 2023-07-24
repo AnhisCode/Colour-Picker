@@ -86,12 +86,12 @@ export default function LeftPanel() {
     <div
       className={`fixed top-0 z-[101] text-menu-text w-[300px] bg-menu overscroll-contain ${openPanel ? "" : "-translate-x-[100%]"} duration-500 ease-out`}>
       {/*panel toggle*/}
-      <div className={"flex items-center font-bold pl-4 text-2xl absolute -right-[25px] " +
+      <div className={"flex items-center font-bold pl-4 text-2xl absolute -right-[25px] bg-menu rounded-r-full " +
         "top-[47%]"}>
         <div
-          className={`${openPanel ? "animate-side-bounce-left" : "animate-side-bounce-right"} cursor-pointer ${isDark ? "text-white" : "text-black"}`}
+          className={`${openPanel ? "animate-side-bounce-left" : "animate-side-bounce-right"} cursor-pointer text-white`}
           onClick={() => setOpenPanel(!openPanel)}>
-          {openPanel ? "<" : ">"}
+          <p className={`translate-y-[-2px] ${openPanel ? "-translate-x-2" : "-translate-x-1"}`}>{openPanel ? "<" : ">"}</p>
         </div>
       </div>
       <div className={"flex"}>

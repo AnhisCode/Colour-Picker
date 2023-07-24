@@ -9,7 +9,7 @@ import { ImageCarousel } from "~/components/ImageCarousel";
 import { NavbarHayden } from "~/components/NavBar";
 import { Footer } from "~/components/Footer";
 import { Fade } from "react-awesome-reveal";
-import Image from "next/image";
+import { ImageBox } from "~/components/ImageSelectSequence/ImageBox";
 
 
 const poppins = localFont({
@@ -111,14 +111,7 @@ export const HaydenPage = () => {
               <div className={"px-20 pt-10 md:pt-0"}>
                 <div className={"w-full grid md:grid-cols-3 grid-cols-1 gap-10"}>
                   <div>
-                    <div className={"aspect-video bg-white shadow-xl rounded-3xl mb-8 overflow-hidden"} >
-                      {/*<Image*/}
-                      {/*  src="/img.png"*/}
-                      {/*  alt="google"*/}
-                      {/*  width="2000"*/}
-                      {/*  height="2000"*/}
-                      {/*/>*/}
-                    </div>
+                    <ImageBox/>
                     <ColourElementWrapper type={"accent1"}>
                       <Fade direction={"up"} triggerOnce={true}>
                         <h3 style={{ color: accentColour1 }} className={"text-xl font-bold mb-4"}>Begin Right Away</h3>
@@ -131,7 +124,7 @@ export const HaydenPage = () => {
                     </ColourElementWrapper>
                   </div>
                   <div>
-                    <div className={"aspect-video bg-white shadow-xl rounded-3xl mb-8"} />
+                    <ImageBox/>
                     <ColourElementWrapper type={"accent1"}>
                       <Fade direction={"up"} triggerOnce={true}>
                         <h3 style={{ color: accentColour1 }} className={"text-xl font-bold mb-4"}>Customise to your
@@ -145,7 +138,7 @@ export const HaydenPage = () => {
                     </ColourElementWrapper>
                   </div>
                   <div>
-                    <div className={"aspect-video bg-white shadow-xl rounded-3xl mb-8"} />
+                    <ImageBox/>
                     <ColourElementWrapper type={"accent1"}>
                       <Fade direction={"up"} triggerOnce={true}>
                         <h3 style={{ color: accentColour1 }} className={"text-xl font-bold mb-4"}>Convenient at your
@@ -187,7 +180,7 @@ export const HaydenPage = () => {
                 {/*image  */}
                 <div className={"grid md:grid-cols-2 grid-cols-1 w-full gap-16 mb-10 xl:mb-20"}>
                   <Fade direction={"left"} triggerOnce={true}>
-                    <div className={"bg-white w-full rounded-3xl shadow-2xl aspect-video"} />
+                    <ImageBox/>
                   </Fade>
                   <div className={"xl:w-[70%]"}>
                     <ColourElementWrapper type={"secondary"}>
