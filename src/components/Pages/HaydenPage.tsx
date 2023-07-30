@@ -10,6 +10,8 @@ import { NavbarHayden } from "~/components/NavBar";
 import { Footer } from "~/components/Footer";
 import { Fade } from "react-awesome-reveal";
 import { ImageBox } from "~/components/ImageSelectSequence/ImageBox";
+import { IntroModal } from "~/components/Pages/IntroModal";
+import { useSession } from "next-auth/react";
 
 
 const poppins = localFont({
@@ -28,6 +30,8 @@ const poppins = localFont({
 
 export const HaydenPage = () => {
 
+  const {data: userData} = useSession();
+
   const {
     primaryColour,
     secondaryColour,
@@ -37,7 +41,7 @@ export const HaydenPage = () => {
     setOpenPanel
   } = useColourContext();
 
-
+  const [isOpen, setIsOpen] = useState(true);
 
 
   const secondaryBrightness = calculateRelativeLuminance(secondaryColour);
@@ -46,13 +50,15 @@ export const HaydenPage = () => {
 
   return (
     <>
+      {!userData &&
+      <IntroModal setIsOpen={setIsOpen} isOpen={isOpen}/>}
       <main className={`w-full ${poppins.variable} font-poppins overflow-hidden`}
             style={{ backgroundColor: darkerPrimary }}>
         <NavbarHayden />
         <div>
           {/*header*/}
           <ColourElementWrapper type={"primary"}>
-            <div className={"flex justify-center z-[1] h-[700px] w-full duration-300 ease-out"}
+            <div className={"flex justify-center z-[1] xl:h-[900px] h-[700px] w-full duration-300 ease-out"}
                  style={{
                    // backgroundColor: primaryColour,
                    background: `linear-gradient(180deg, ${hexToRGB(primaryColour)} 40%, ${darkerPrimary} 100%)`
@@ -60,7 +66,7 @@ export const HaydenPage = () => {
               <div className={"absolute scale-[70%] z-0 rotate-[18deg] md:left-10 -left-60 top-0"}>
                 <Blob colour={accentColour2} />
               </div>
-              <div className={"absolute scale-[70%] z-0 rotate-[160deg] md:right-10 -right-60 bottom-20"}>
+              <div className={"absolute scale-[70%] z-0 rotate-[160deg] md:right-10 -right-60 bottom-40"}>
                 <Blob colour={accentColour3} />
               </div>
               <ColourElementWrapper type={"secondary"}>
@@ -156,10 +162,10 @@ export const HaydenPage = () => {
             </div>
 
             <div
-              className={"top-0 absolute z-0 scale-[150%] md:translate-x-[-20px] rotate-[-3deg] md:translate-y-[-100px] translate-y-[-130px]"}>
+              className={"top-0 absolute z-0 scale-[150%] md:translate-x-[-20px] rotate-[-3deg] md:translate-y-[-120px] translate-y-[-130px]"}>
               <SectionBleed1 colour={secondaryColour} />
             </div>
-            <div className={"absolute rotate-[-181deg] z-10 scale-x-[150%] -translate-y-[80px]"}>
+            <div className={"absolute rotate-[-181deg] z-10 scale-x-[170%] -translate-y-[80px]"}>
               <SectionBleed1 colour={secondaryColour} />
             </div>
           </ColourElementWrapper>
@@ -260,10 +266,10 @@ export const HaydenPage = () => {
             </div>
 
             <div
-              className={"top-0 absolute z-0 rotate-[-1deg] scale-x-[150%] md:translate-y-[-150px] translate-y-[-110px]"}>
+              className={"top-0 absolute z-0 rotate-[-1deg] scale-x-[170%] md:translate-y-[-150px] translate-y-[-110px]"}>
               <SectionBleed1 colour={secondaryColour} />
             </div>
-            <div className={"absolute rotate-[-181deg] z-10 scale-x-[150%] -translate-y-[80px] md:-translate-y-[50px]"}>
+            <div className={"absolute rotate-[-181deg] z-10 scale-x-[180%] -translate-y-[80px] md:-translate-y-[50px]"}>
               <SectionBleed1 colour={secondaryColour} />
             </div>
           </ColourElementWrapper>
@@ -350,7 +356,7 @@ export const HaydenPage = () => {
           {/*body 5*/}
           <ColourElementWrapper type={"secondary"}>
             <div
-              className={"top-0 absolute z-0 rotate-[1deg] scale-x-[-150%] md:translate-y-[-150px] translate-y-[-110px]"}>
+              className={"top-0 absolute z-0 rotate-[1deg] scale-x-[-170%] md:translate-y-[-160px] translate-y-[-110px]"}>
               <SectionBleed1 colour={secondaryColour} />
             </div>
             <div className={`md:block absolute scale-[70%] z-20 rotate-[34deg] left-10 top-0 hidden`}>
@@ -389,7 +395,7 @@ export const HaydenPage = () => {
                 </Fade>
               </div>
             </div>
-            <div className={"absolute z-[29] rotate-[-179deg] scale-x-[-150%] translate-x-[10px] -translate-y-[75px]"}>
+            <div className={"absolute z-[29] rotate-[-179deg] scale-x-[-170%] translate-x-[10px] -translate-y-[75px]"}>
               <SectionBleed1 colour={secondaryColour} />
             </div>
           </ColourElementWrapper>

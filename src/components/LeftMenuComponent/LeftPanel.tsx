@@ -96,10 +96,6 @@ export default function LeftPanel() {
       </div>
       <div className={"flex"}>
         <div className={`relative`}>
-          {/*panel info*/}
-          {/*<button onClick={() => {setEditMode(!editMode)}}>*/}
-          {/*  edit mode*/}
-          {/*</button>*/}
           <div className={"overflow-scroll h-screen"}>
             <div>
               <div
