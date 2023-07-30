@@ -60,10 +60,10 @@ export const IntroModal = ({ isOpen, setIsOpen }: Props) => {
                     </div>
                   </Dialog.Title>
                   <div className="mt-2 text-sm text-menu-text">
-                    <p className="text-xl mb-5">
+                    <p className="text-xl">
                       <span className={"font-bold"}>Welcome</span> to ColorPick!
                     </p>
-                    <p className={"mb-4"}>
+                    <p className={"mb-4 italic translate-x-2"}>
                       Where colors come alive! 🌈
                     </p>
                     <p className={"mb-4"}>
