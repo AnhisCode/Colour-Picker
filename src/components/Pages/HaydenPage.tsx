@@ -50,6 +50,8 @@ export const HaydenPage = () => {
 
   return (
     <>
+      {!userData &&
+        <IntroModal setIsOpen={setIsOpen} isOpen={isOpen}/>}
       <main className={`w-full ${poppins.variable} font-poppins overflow-hidden`}
             style={{ backgroundColor: darkerPrimary }}>
         <NavbarHayden />
