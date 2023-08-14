@@ -156,10 +156,10 @@ export const HaydenPage = () => {
             </div>
 
             <div
-              className={"top-0 absolute z-0 scale-[150%] md:translate-x-[-20px] rotate-[-3deg] md:translate-y-[-100px] translate-y-[-130px]"}>
+              className={"top-0 absolute z-0 md:scale-[150%] scale-[250%] translate-x-10 md:translate-x-[-20px] rotate-[-3deg] md:translate-y-[-100px] translate-y-[-130px]"}>
               <SectionBleed1 colour={secondaryColour} />
             </div>
-            <div className={"absolute rotate-[-181deg] z-10 scale-x-[150%] -translate-y-[80px]"}>
+            <div className={"absolute rotate-[-181deg] z-10 scale-x-[150%] translate-x-10 md:translate-x-0 -translate-y-[80px]"}>
               <SectionBleed1 colour={secondaryColour} />
             </div>
           </ColourElementWrapper>
@@ -228,12 +228,9 @@ export const HaydenPage = () => {
                     </div>
                     <Fade direction={"up"} triggerOnce={true}>
                       <div>
-                        <p className={`leading-extra-loose ${bright ? "text-black" : "text-white"}`}>CoinBase is an
-                          online
-                          site and a p2admin platform that allows
-                          users to buy,
-                          sell and/ or exchange digital and fiat assets safely. Owned and managed by
-                          CoinBase Business Services established and Incoperated in Nigeria.
+                        <p className={`leading-extra-loose ${bright ? "text-black" : "text-white"}`}>
+                          Fusce ut elit aliquet, fermentum leo vel, tempus nunc. Fusce eu rhoncus augue.
+                          Fusce vel metus pharetra, fermentum
                         </p>
                         <div className={"flex"}>
                           <div
@@ -260,10 +257,10 @@ export const HaydenPage = () => {
             </div>
 
             <div
-              className={"top-0 absolute z-0 rotate-[-1deg] scale-x-[150%] md:translate-y-[-150px] translate-y-[-110px]"}>
+              className={"top-0 absolute z-0 rotate-[-1deg] scale-x-[150%] translate-x-10 md:translate-x-0 md:translate-y-[-150px] translate-y-[-110px]"}>
               <SectionBleed1 colour={secondaryColour} />
             </div>
-            <div className={"absolute rotate-[-181deg] z-10 scale-x-[150%] -translate-y-[80px] md:-translate-y-[50px]"}>
+            <div className={"absolute rotate-[-181deg] z-10 scale-x-[150%] translate-x-10 md:translate-x-0 -translate-y-[80px] md:-translate-y-[50px]"}>
               <SectionBleed1 colour={secondaryColour} />
             </div>
           </ColourElementWrapper>
@@ -350,7 +347,7 @@ export const HaydenPage = () => {
           {/*body 5*/}
           <ColourElementWrapper type={"secondary"}>
             <div
-              className={"top-0 absolute z-0 rotate-[1deg] scale-x-[-150%] md:translate-y-[-150px] translate-y-[-110px]"}>
+              className={"top-0 absolute z-0 rotate-[1deg] scale-x-[-150%] translate-x-10 md:translate-x-0 md:translate-y-[-150px] translate-y-[-110px]"}>
               <SectionBleed1 colour={secondaryColour} />
             </div>
             <div className={`md:block absolute scale-[70%] z-20 rotate-[34deg] left-10 top-0 hidden`}>
@@ -366,7 +363,7 @@ export const HaydenPage = () => {
                 <div className={"flex justify-center translate-y-0 md:translate-y-[-100%]"}>
                   <ColourElementWrapper type={"accent1"}>
                     <h2 className={"text-2xl font-bold"} style={{ color: accentColour1 }}>Experience the magic</h2>
-                    <div className={"flex justify-center mt-2"}>
+                    <div className={"flex justify-center mt-2 md:mb-0 mb-10"}>
                       <div className={"w-16 h-2 rounded-full"} style={{ backgroundColor: accentColour1 }} />
                     </div>
                   </ColourElementWrapper>
@@ -389,7 +386,7 @@ export const HaydenPage = () => {
                 </Fade>
               </div>
             </div>
-            <div className={"absolute z-[29] rotate-[-179deg] scale-x-[-150%] translate-x-[10px] -translate-y-[75px]"}>
+            <div className={"absolute z-[29] rotate-[-179deg] translate-x-10 scale-x-[-150%] md:translate-x-[10px] -translate-y-[85px] md:-translate-y-[75px]"}>
               <SectionBleed1 colour={secondaryColour} />
             </div>
           </ColourElementWrapper>
