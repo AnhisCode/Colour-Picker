@@ -69,7 +69,7 @@ export const ColourPaletteSearch = () => {
   const palettes = paletteData && paletteData.palettes && paletteData.palettes || [];
 
   const def = {
-    themeName: "default",
+    themeName: "Default",
     primaryColour: "#E94C78",
     secondaryColour: "#FFFFFF",
     accentColour1: "#FD749B",

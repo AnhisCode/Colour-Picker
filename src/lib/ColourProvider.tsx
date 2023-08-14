@@ -21,6 +21,16 @@ interface ColourContextType {
   setEditMode: (value: boolean) => void;
   openPanel: boolean;
   setOpenPanel: (value: boolean) => void;
+  primaryColourLocked: boolean;
+  setPrimaryColourLocked: (value: boolean) => void;
+  secondaryColourLocked: boolean;
+  setSecondaryColourLocked: (value: boolean) => void;
+  accentColour1Locked: boolean;
+  setAccentColour1Locked: (value: boolean) => void;
+  accentColour2Locked: boolean;
+  setAccentColour2Locked: (value: boolean) => void;
+  accentColour3Locked: boolean;
+  setAccentColour3Locked: (value: boolean) => void;
 }
 
 // Create the context
@@ -50,22 +60,37 @@ export const MyColourProvider: React.FC = ({ children }: { children?: ReactNode[
   const [accentColour2History, setAccentColour2History] = useState(["#D2D2D2".toLowerCase()]);
   const [accentColour3History, setAccentColour3History] = useState(["#FFD0D0".toLowerCase()]);
   const [openPanel, setOpenPanel] = useState(false);
+  const [primaryColourLocked, setPrimaryColourLocked] = React.useState(false);
+  const [secondaryColourLocked, setSecondaryColourLocked] = React.useState(false);
+  const [accentColour1Locked, setAccentColour1Locked] = React.useState(false);
+  const [accentColour2Locked, setAccentColour2Locked] = React.useState(false);
+  const [accentColour3Locked, setAccentColour3Locked] = React.useState(false);
 
   // handles changing state for colours, as well as keep history of last 6 colours
   const setPrimaryColour = (colour: string, save = true) => {
+    if(!primaryColourLocked){
     changeColourHelper(colour, primaryColourHistory, setPrimaryColourHistory, setPColour, save);
+    }
   };
   const setSecondaryColour = (colour: string, save = true) => {
-    changeColourHelper(colour, secondaryColourHistory, setSecondaryColourHistory, setSColour, save);
+    if (!secondaryColourLocked) {
+      changeColourHelper(colour, secondaryColourHistory, setSecondaryColourHistory, setSColour, save);
+    }
   };
   const setAccentColour1 = (colour: string, save = true) => {
-    changeColourHelper(colour, accentColour1History, setAccentColour1History, setAColour1, save);
+    if (!accentColour1Locked) {
+      changeColourHelper(colour, accentColour1History, setAccentColour1History, setAColour1, save);
+    }
   };
   const setAccentColour2 = (colour: string, save = true) => {
+    if (!accentColour2Locked) {
     changeColourHelper(colour, accentColour2History, setAccentColour2History, setAColour2, save);
+    }
   };
   const setAccentColour3 = (colour: string, save = true) => {
-    changeColourHelper(colour, accentColour3History, setAccentColour3History, setAColour3, save);
+    if (!accentColour3Locked) {
+      changeColourHelper(colour, accentColour3History, setAccentColour3History, setAColour3, save);
+    }
   };
 
   const [editMode, setEditMode] = useState(false);
@@ -90,7 +115,17 @@ export const MyColourProvider: React.FC = ({ children }: { children?: ReactNode[
     editMode,
     setEditMode,
     openPanel,
-    setOpenPanel
+    setOpenPanel,
+    primaryColourLocked,
+    setPrimaryColourLocked,
+    secondaryColourLocked,
+    setSecondaryColourLocked,
+    accentColour1Locked,
+    setAccentColour1Locked,
+    accentColour2Locked,
+    setAccentColour2Locked,
+    accentColour3Locked,
+    setAccentColour3Locked,
   };
 
   //TODO ADD EDIT MODE

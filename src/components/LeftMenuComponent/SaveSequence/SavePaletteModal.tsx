@@ -165,7 +165,7 @@ export function SavePaletteModal({isOpen, setIsOpen} : ColorPalette) {
                   </div>
 
                   {/* eslint-disable-next-line @typescript-eslint/no-misused-promises*/}
-                  <form className={"block px-4 mb-12 text-menu-text"} onSubmit={handleSubmit(handleSave)}>
+                  <form className={"block px-4 mb-4 text-menu-text"} onSubmit={handleSubmit(handleSave)}>
                     <div className={"flex mb-4"}>
                       <div className={"w-full"}>
                         <input placeholder="theme" {...register("theme")} required={true}

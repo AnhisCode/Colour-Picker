@@ -10,6 +10,8 @@ import { NavbarHayden } from "~/components/NavBar";
 import { Footer } from "~/components/Footer";
 import { Fade } from "react-awesome-reveal";
 import { ImageBox } from "~/components/ImageSelectSequence/ImageBox";
+import { IntroModal } from "~/components/Pages/IntroModal";
+import { useSession } from "next-auth/react";
 
 
 const poppins = localFont({
@@ -28,6 +30,8 @@ const poppins = localFont({
 
 export const HaydenPage = () => {
 
+  const {data: userData} = useSession();
+
   const {
     primaryColour,
     secondaryColour,
@@ -37,7 +41,7 @@ export const HaydenPage = () => {
     setOpenPanel
   } = useColourContext();
 
-
+  const [isOpen, setIsOpen] = useState(true);
 
 
   const secondaryBrightness = calculateRelativeLuminance(secondaryColour);
@@ -52,7 +56,7 @@ export const HaydenPage = () => {
         <div>
           {/*header*/}
           <ColourElementWrapper type={"primary"}>
-            <div className={"flex justify-center z-[1] h-[700px] w-full duration-300 ease-out"}
+            <div className={"flex justify-center z-[1] xl:h-[900px] h-[700px] w-full duration-300 ease-out"}
                  style={{
                    // backgroundColor: primaryColour,
                    background: `linear-gradient(180deg, ${hexToRGB(primaryColour)} 40%, ${darkerPrimary} 100%)`
@@ -60,7 +64,7 @@ export const HaydenPage = () => {
               <div className={"absolute scale-[70%] z-0 rotate-[18deg] md:left-10 -left-60 top-0"}>
                 <Blob colour={accentColour2} />
               </div>
-              <div className={"absolute scale-[70%] z-0 rotate-[160deg] md:right-10 -right-60 bottom-20"}>
+              <div className={"absolute scale-[70%] z-0 rotate-[160deg] md:right-10 -right-60 bottom-40"}>
                 <Blob colour={accentColour3} />
               </div>
               <ColourElementWrapper type={"secondary"}>
@@ -363,7 +367,7 @@ export const HaydenPage = () => {
                 <div className={"flex justify-center translate-y-0 md:translate-y-[-100%]"}>
                   <ColourElementWrapper type={"accent1"}>
                     <h2 className={"text-2xl font-bold"} style={{ color: accentColour1 }}>Experience the magic</h2>
-                    <div className={"flex justify-center mt-2 md:mb-0 mb-10"}>
+                    <div className={"flex justify-center mt-2"}>
                       <div className={"w-16 h-2 rounded-full"} style={{ backgroundColor: accentColour1 }} />
                     </div>
                   </ColourElementWrapper>

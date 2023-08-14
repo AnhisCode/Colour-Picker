@@ -2,14 +2,8 @@ import React, { useState } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { api } from "~/utils/api";
 import { useColourContext } from "~/lib/ColourProvider";
-import Circle from "@uiw/react-color-circle";
-import { ColourElementWrapper } from "~/components/ColourElementWrapper";
 import { calculateRelativeLuminance } from "~/lib/HexFunctionHelper";
-import { AiFillCheckCircle } from "react-icons/ai";
 import { FaRobot } from "react-icons/fa";
-import { useSession } from "next-auth/react";
-import Link from "next/link";
-import { BiSolidErrorCircle } from "react-icons/bi";
 import { ColourPaletteSearch } from "~/components/LeftMenuComponent/ColourPaletteSearch";
 import { SavePalette } from "~/components/LeftMenuComponent/SaveSequence/SavePalette";
 import { ColourPicker } from "~/components/LeftMenuComponent/ColourPicker";
@@ -42,13 +36,6 @@ export default function LeftPanel() {
     accentColour1,
     accentColour2,
     accentColour3,
-    primaryColourHistory,
-    secondaryColourHistory,
-    accentColour1History,
-    accentColour2History,
-    accentColour3History,
-    editMode,
-    setEditMode,
     openPanel,
     setOpenPanel
   } = useColourContext();
@@ -67,20 +54,7 @@ export default function LeftPanel() {
     setLoading(false);
   };
 
-  const generatePaletteWithoutTheme = async () => {
-    setLoading(true);
-    setCurrentTheme("")
-    const res = await getTheme.mutateAsync({ theme: "" });
-    setPrimaryColour((res as colourResponse).primaryColour);
-    setSecondaryColour((res as colourResponse).secondaryColour);
-    setAccentColour1((res as colourResponse).accentColour1);
-    setAccentColour2((res as colourResponse).accentColour2);
-    setAccentColour3((res as colourResponse).accentColour3);
-    setLoading(false);
-  };
-
   const relativeLuminance = calculateRelativeLuminance(primaryColour);
-  const isDark = relativeLuminance < 0.5;
 
   return (
     <div
@@ -96,10 +70,6 @@ export default function LeftPanel() {
       </div>
       <div className={"flex"}>
         <div className={`relative`}>
-          {/*panel info*/}
-          {/*<button onClick={() => {setEditMode(!editMode)}}>*/}
-          {/*  edit mode*/}
-          {/*</button>*/}
           <div className={"overflow-scroll h-screen"}>
             <div>
               <div
@@ -130,7 +100,7 @@ export default function LeftPanel() {
                   <div className={"flex mb-4"}>
                     <label className={"mr-2 flex items-center -translate-y-[11px]"}> <FaRobot /> </label>
                     <div className={"w-full"}>
-                      <input placeholder="theme" {...register("theme")} required={true}
+                      <input placeholder="theme" {...register("theme")}
                              className={"w-full bg-[#30303d] pl-2 rounded-md focus:outline-none"}
                              maxLength={20}/>
                       <p className={"text-xs pl-2"}>eg. Navy, Beige, Forest</p>
@@ -140,12 +110,12 @@ export default function LeftPanel() {
                     <input className={" text-menu-text bg-transparent cursor-pointer font-bold " +
                       "border-menu-text border-2 hover:text-menu hover:bg-menu-text rounded-md px-4"}
                            type="submit" value={"Generate"} disabled={loading} />
-                    {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
-                    <div onClick={() => generatePaletteWithoutTheme()}
-                         className={" ml-2 text-menu-text bg-transparent cursor-pointer font-bold " +
-                           "border-menu-text border-2 hover:text-menu hover:bg-menu-text rounded-md px-4"}>
-                      Random
-                    </div>
+                    {/*/!* eslint-disable-next-line @typescript-eslint/no-misused-promises *!/*/}
+                    {/*<div onClick={() => generatePaletteWithoutTheme()}*/}
+                    {/*     className={" ml-2 text-menu-text bg-transparent cursor-pointer font-bold " +*/}
+                    {/*       "border-menu-text border-2 hover:text-menu hover:bg-menu-text rounded-md px-4"}>*/}
+                    {/*  Random*/}
+                    {/*</div>*/}
                   </div>
                 </form>
                 <h1 className={"font-bold text-center mb-4 text-xl"}>Current Palette</h1>
