@@ -367,7 +367,7 @@ export const HaydenPage = () => {
                 <div className={"flex justify-center translate-y-0 md:translate-y-[-100%]"}>
                   <ColourElementWrapper type={"accent1"}>
                     <h2 className={"text-2xl font-bold"} style={{ color: accentColour1 }}>Experience the magic</h2>
-                    <div className={"flex justify-center mt-2"}>
+                    <div className={"flex justify-center mt-2 md:mb-0 mb-10"}>
                       <div className={"w-16 h-2 rounded-full"} style={{ backgroundColor: accentColour1 }} />
                     </div>
                   </ColourElementWrapper>
